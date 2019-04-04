@@ -18,9 +18,14 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
 urlpatterns = [
-    path('cookbook/', include('cookbook.urls')),
-    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('admin/', admin.site.urls, name='admin'),
+    path('cookbook/', include('cookbook.urls'), name='cookbook'),
+    path('restaurants/', include('restaurants.urls'), name='restaurants'),
+    path('mit/', include('personal.urls'), name='mit')
 ]
 
 if settings.DEBUG:

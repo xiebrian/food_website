@@ -1,0 +1,72 @@
+{% load static %}
+
+<div id='searchbar'>
+
+<div class='dropdown'>
+    <h4 class='legend'>Search filters:</h4>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="TypeDropdownMenu" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Filters
+    </button>
+    <div class="dropdown-menu" aria-labelledby="TypeDropdownMenu">
+        <a href="{{request.path}}?type=featured" class='menu-item'>
+            <button class="dropdown-item" type="button">Featured</button>
+        </a>
+        <a href="{{request.path}}?type=recent" class='menu-item'>
+            <button class="dropdown-item" type="button">Recent</button>
+        </a>
+        <a href="{{request.path}}?type=experiments" class='menu-item'>
+            <button class="dropdown-item" type="button">Experiments</button>
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="{{request.path}}?" class='menu-item'>
+            <button class="dropdown-item" type="button">All</button>
+        </a>
+    </div>
+</div>
+
+<div class='dropdown'>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="CuisineDropdownMenu" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Cuisine
+    </button>
+    <div class="dropdown-menu" aria-labelledby="CuisineDropdownMenu">
+        {% for cuisine in cuisines %}
+            <a href="{{request.path}}?cuisine={{cuisine.cuisine_name}}" class='menu-item'>
+            <button class="dropdown-item" type="button">
+                {{cuisine.cuisine_name}}
+            </button>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class='dropdown'>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="CategoryDropdownMenu" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Category
+    </button>
+    <div class="dropdown-menu" aria-labelledby="CategoryDropdownMenu">
+        {% for category in categories %}
+            <a href="{{request.path}}?category={{category.category_name}}" class='menu-item'>
+            <button class="dropdown-item" type="button">
+                {{category.category_name}}
+            </button>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class='dropdown'>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="IngredientDropdownMenu" data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+        Main Ingredients
+    </button>
+    <div class="dropdown-menu" aria-labelledby="IngredientDropdownMenu">
+        {% for ingredient in main_ingredients %}
+            <a href="{{request.path}}?ingredient={{ingredient.ingredient_name}}" class='menu-item'>
+            <button class="dropdown-item" type="button">
+                {{ingredient.ingredient_name}}
+            </button>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+</div>

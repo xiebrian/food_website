@@ -31,12 +31,16 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'cookbook.apps.CookbookConfig',
+    'restaurants.apps.RestaurantsConfig',
+    'personal.apps.PersonalConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'easy_thumbnails',
+    'image_cropping',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +58,7 @@ ROOT_URLCONF = 'food_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,3 +127,11 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'web/static')
 STATIC_URL = '/static/'
+
+# django-image-cropping lets us crop input images (only in display) 
+# to fixed aspect ratios
+THUMBNAIL_DEBUG = True
+from easy_thumbnails.conf import Settings as thumbnail_settings
+THUMBNAIL_PROCESSORS = (
+    'image_cropping.thumbnail_processors.crop_corners',
+) + thumbnail_settings.THUMBNAIL_PROCESSORS

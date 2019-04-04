@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load cookbook_extras %}
+
+{% block bodyid %}details{% endblock %}
+{% block bodyclass %}{% endblock %}
+{% block headtitle %}Brian Xie | Cookbook{% endblock %}
+
+
+{% block main_content %}
+    <div class='container' id='detail-container'>
+        <div class='title_section'>
+            <h1><b>{{recipe.recipe_name}}</b></h1>
+        </div>
+        <div class='row'>
+            <div class='col'>
+                <p>{{recipe.desc_summary}}</p>
+
+                <!-- Uncropped image of the food item -->
+                <img src="{{recipe.picture.url}}" class='ImageDetail'>
+
+                <p><b>Cooking Time:</b> {{recipe.cooking_time|duration}}</p>
+                <p><b>Total Time:</b> {{recipe.total_time|duration}}</p>
+                <hr>
+                <h5 class='subcategory'><b>Ingredients</b></h5>
+                <hr>
+                <p>{{recipe.text_ingred|linebreaks}}</p>
+                <hr>
+                <h5 class='subcategory'><b>Instructions</b></h5>
+                <hr>
+                <p>{{recipe.instructions|linebreaks}}</p>
+                <hr>
+                <h5 class='subcategory'><b>Notes/Tips:</b></h5>
+                <hr>
+                <p>{{recipe.notes|linebreaks}}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

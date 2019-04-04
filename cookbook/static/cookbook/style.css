@@ -1,0 +1,172 @@
+
+/* Ensuring that the cookbook view remains centered */
+
+@media (max-width: 542px) {
+    #cookbook {
+        max-width: 280px;
+    }
+}
+@media (max-width: 796px) and (min-width: 543px) {
+    #cookbook {
+        max-width: 534px;
+    }
+}
+@media (max-width: 1050px) and (min-width: 797px) {
+    #cookbook {
+        max-width: 788px;
+    }
+}
+@media (max-width: 1304px) and (min-width: 1051px) {
+    #cookbook {
+        max-width: 1042px;
+    }
+}
+@media (max-width: 1558px) and (min-width: 1305px) {
+    #cookbook {
+        max-width: 1296px;
+    }
+}
+
+@media (max-width: 600px) {
+    #detail-container {
+        max-width: 95%;
+    }
+}
+@media (max-width: 1425px) and (min-width: 600px) {
+    #detail-container {
+        max-width: 570px;
+    }
+}
+@media (min-width: 1425px) {
+    #detail-container {
+        max-width: 40%;
+    }
+}
+
+/* Styling for navigation bar at top */
+
+.nav-item {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+/* Styling for dropdown menu bar */
+
+a {
+    text-decoration: none !important;
+}
+
+.btn {
+    margin-right: 0.8em;
+}
+
+.dropdown-toggle {
+    background-color: rgb(130, 130, 130);
+}
+
+.dropdown-toggle:hover {
+    background-color: rgb(65, 65, 65);
+}
+
+.legend {
+    float: left;
+    margin-right: 2em;
+    margin-top: 0.2em;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+#searchbar {
+    text-align: center;
+}
+
+/* When hovering over a food image wrapped by 'button_img' and 'img_link_wrap',
+   dim it and show the recipe_name in white over the image */
+
+img {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    transition: opacity .4s;
+}
+
+.img_link_wrap {
+    margin-bottom: 4px;
+    position: relative;
+    display: inline-block;
+    transition: background-color .4s;
+}
+
+.button_img {
+    display: inline-block;
+}
+
+.button_img:hover .img_link_wrap {
+    background-color: black;
+}
+
+.button_img:hover img {
+    opacity: 0.60;
+}
+
+.img__description {
+  position: absolute; 
+  top: 110px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+
+  transition: opacity .4s, visibility .4s;
+}
+
+.img_link_wrap:hover .img__description {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* RECIPE DETAILS
+   We want the title to be centered, and 
+   we want the picture to be displayed with a maximum width */
+
+h1 {
+    text-align: center;
+}
+
+h5 {
+    text-align: center;
+}
+
+.ImageDetail {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+/* ========================================================================== */
+
+.title_section {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+br {
+    margin-bottom: 0.6rem;
+}
+
+hr {
+    margin-top: 0.1em;
+    margin-bottom: 0.3em;
+    border: 1px solid purple;
+}

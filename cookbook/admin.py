@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin.views.main import ChangeList
 
-from .models import Recipe, Ingredient, Category
+from image_cropping import ImageCroppingMixin
+
+from .models import Recipe, Ingredient, Category, Cuisine
 from .forms import RecipeChangeListForm
 
 
@@ -22,7 +24,7 @@ class RecipeChangeList(ChangeList):
         # self.list_editable = []
 
 
-class RecipeAdmin(admin.ModelAdmin):
+class RecipeAdmin(ImageCroppingMixin, admin.ModelAdmin):
     def get_changelist(self, request, **kwargs):
         return RecipeChangeList
 
@@ -30,16 +32,19 @@ class RecipeAdmin(admin.ModelAdmin):
         return RecipeChangeListForm
 
     fieldsets = [
-        (None, {'fields': ['recipe_name', 'picture']}),
-        ('Recipe Information', {'fields': ['description', 'ingredients', 'cooking_time', 'total_time', 'categories']}),
-        ('Logging Information', {'fields': ['last_cook_time', 'number_of_attempts', 'mastery', 'feature_position']})
+        (None, {'fields': ['recipe_name', 'picture', 'cropping']}),
+        ('Recipe Description', {'fields': ['desc_summary', 'text_ingred', 'instructions', 'notes', 'personal_log']}),
+        ('Recipe Information', {'fields': ['ingredients', 'cooking_time', 'total_time', 'categories', 'cuisines']}),
+        ('Logging Information', {'fields': ['last_cook_time', 'number_of_attempts', 'is_experiment', 'feature_position', 'url_name']})
     ]
-    list_display = ('recipe_name', 'cooking_time', 'total_time', 'mastery')
+    list_display = ('recipe_name', 'cooking_time', 'total_time', 'is_experiment')
     search_fields = ['categories__category_name', 
                      'ingredients__ingredient_name',
                      'recipe_name']
+    filter_horizontal = ('categories', 'ingredients', 'cuisines')
 
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient)
 admin.site.register(Category)
+admin.site.register(Cuisine)
