@@ -99,6 +99,8 @@ img {
     position: relative;
     display: inline-block;
     transition: background-color .4s;
+    width: 250px;
+    height: 250px;
 }
 
 .button_img {
@@ -111,6 +113,11 @@ img {
 
 .button_img:hover img {
     opacity: 0.60;
+}
+
+.img__img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .img__description {

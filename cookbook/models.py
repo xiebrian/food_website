@@ -43,7 +43,7 @@ class Recipe(models.Model):
     """
     recipe_name  = models.CharField(max_length=100)
     picture      = models.ImageField(blank=True, upload_to=picture_file_name)
-    cropping     = ImageRatioField('picture', '250x250', size_warning=True)
+    cropping     = ImageRatioField('picture', '2000x2000', size_warning=True)
 
     desc_summary = models.TextField("Description Summary", default="", blank=True)
     text_ingred  = models.TextField("Ingredients List", default="", blank=True) 

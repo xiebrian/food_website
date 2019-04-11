@@ -39,6 +39,7 @@ class RecipeAdmin(ImageCroppingMixin, admin.ModelAdmin):
     ]
     list_display = ('recipe_name', 'cooking_time', 'total_time', 'is_experiment')
     search_fields = ['categories__category_name', 
+                     'cuisines__cuisine_name',
                      'ingredients__ingredient_name',
                      'recipe_name']
     filter_horizontal = ('categories', 'ingredients', 'cuisines')

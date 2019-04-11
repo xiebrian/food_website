@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
@@ -13,12 +14,18 @@ def filter_recipes(request):
     # Type filtering (Featured, Recent, Experiments)
     type_filter = request.GET.get('type', '')
     if type_filter:
-        if type_filter == 'featured':
-            recipe_set = recipe_set.filter(~Q(feature_position=0))
-        elif type_filter == 'recent':
-            recipe_set = recipe_set.order_by('-last_cook_time')[:5]
-        elif type_filter == 'experiments':
+        if type_filter == 'experiments':
             recipe_set = recipe_set.filter(is_experiment=True)
+        elif type_filter == 'recent':
+            recipe_set = recipe_set.order_by('-last_cook_time')[:10]
+        elif type_filter == 'featured':
+            recipe_set = recipe_set.filter(~Q(feature_position=0)).order_by('feature_position')
+        elif type_filter == 'short-time':
+            recipe_set = recipe_set.order_by('total_time').filter(
+                                    total_time__lte=datetime.timedelta(hours=1))
+        elif type_filter == 'long-time':
+            recipe_set = recipe_set.order_by('-total_time').filter(
+                                    total_time__gte=datetime.timedelta(hours=1))
 
     # Cuisine filtering 
     cuisine_filter = request.GET.get('cuisine', '')
