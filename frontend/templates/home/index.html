@@ -5,12 +5,25 @@
 {% block bodyclass %}{% endblock%}
 {% block headtitle %}Brian Xie{% endblock %}
 
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'cookbook/style.css' %}">
+{% endblock %}
+
 {% block main_content %}
-    <div class='container' id='home'>
-        <div class='title_section'>
-            <h1> <b>Brian Xie</b> </h1>
+    <div class='container' id='frontpage'>
+        <div class='title_section' id='FrontTitle'>
+            <h1><b>Brian Xie</b></h1>
         </div>
 
-        <p> This landing webpage is currently under construction. Currently, only Cookbook is implemented. </p>
+        <div class='row'>
+            <div class='col-sm-5' id='ProfilePictureColumn'>
+                <img src="{% static 'profile.jpg'%}" id='ProfilePic'>
+            </div>
+            <div class='col-sm-7' id='ProfileTextColumn'>
+                <p>Hi! My name is Brian Xie, and I'm a junior at MIT studying Computer Science & Engineering. My primary academic interests include back-end software engineering, machine learning, and game theory.</p>
+                <p>I'm co-president and webmaster of the <a href='http://poker.mit.edu'>MIT Poker Club</a>. I also love food, so I enjoy <a href='cookbook'>cooking</a> and visiting <a href='restaurants'>restaurants</a>. This semester, I've invested a lot of effort towards improving and experimenting with my cooking, and I hope to open a mini pop-up restaurant in my dorm in the near future.</p>
+                <p>Contact me at <a href="mailto:brianxie@mit.edu"><b>brianxie@mit.edu</b></a>.
+            </div>
+        </div>
     </div>
 {% endblock %}

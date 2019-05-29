@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block bodyid %}restaurants{% endblock %}
+{% block bodyclass %}{% endblock %}
+{% block headtitle %}Brian Xie | Restaurants{% endblock %}
+
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'restaurants/style.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <div class='container' id='detail-container'>
+        <div class='title_section'>
+            <h1><b>{{restaurant.restaurant_name}}</b></h1>
+        </div>
+        <div class='row'>
+            <div class='col-md-4'>
+                <table class='table'>
+                    <tbody>
+                        <tr>
+                            <th scope='row'>Cuisine</th>
+                            <td>{{restaurant.cuisines}}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>Price</th>
+                            <td>
+                                {% if restaurant.price == 1 %}
+                                    $ (under 10)
+                                {% elif restaurant.price == 2 %}
+                                    $$ (11-20)
+                                {% elif restaurant.price == 3 %}
+                                    $$$ (21-30)
+                                {% elif restaurant.price == 4 %}
+                                    $$$$ (31-50)
+                                {% elif restaurant.price == 5 %}
+                                    $$$$$ (51-100)
+                                {% elif restaurant.price == 6 %}
+                                    $$$$$$ (over 101)
+                                {% endif %}
+                            </td>
+                        <tr>
+                            <th scope='row'>Rating</th>
+                            <td>{{restaurant.rating}}/10</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>Last Visit</th>
+                            <td>{{restaurant.last_visit}}</td>
+                        </tr>
+                        <tr>
+                            <th scope='row'>Location</th>
+                            <td>{{restaurant.district}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- MINIMAP HERE -->
+                <div id='map'></div>
+                <input type='hidden' id='address' value='{{restaurant.address}}'>
+                <script src="{% static 'restaurants/minimap.js' %}"></script>
+                <script async defer
+                    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAVYYFSN3BTguDGg_3dqeO1QxjE8rUemGc&callback=initMap'>
+                </script>
+            </div>
+            <div class='col-md-7'>
+                {% if restaurant.notes %}
+                    <hr>
+                    <h6 class='subcategory'><b>General Notes</b></h5>
+                    <hr>
+                    <p>{{restaurant.notes|linebreaks}}</p>
+                {% endif %}
+                {% if restaurant.positives %}
+                    <hr>
+                    <h6 class='subcategory'><b>Positives</b></h5>
+                    <hr>
+                    <p>{{restaurant.positives|linebreaks}}</p>
+                {% endif %}
+                {% if restaurant.negatives %}
+                <hr>
+                <h6 class='subcategory'><b>Negatives</b></h5>
+                <hr>
+                <p>{{restaurant.negatives|linebreaks}}</p>
+                {% endif %}
+                {% if dishes %}
+                <hr>
+                <h6 class='subcategory'><b>Dishes Tasted</b></h5>
+                <hr>
+                    <ul>
+                    {% for dish in dishes %}
+                        {% if dish.rating == 0 %}
+                            {% if dish.notes %}
+                                <li class='dish-item'>&#9734;&#9734;&#9734;&#9734;  {{dish.dish_name}} -- {{dish.notes}}</li>
+                            {% else %}
+                                <li class='dish-item'>&#9734;&#9734;&#9734;&#9734;  {{dish.dish_name}}</li>
+                            {% endif %}
+                        {% elif dish.rating == 1 %}
+                            {% if dish.notes %}
+                                <li class='dish-item'>&#9733;&#9734;&#9734;&#9734;  {{dish.dish_name}} -- {{dish.notes}}</li>
+                            {% else %}
+                                <li class='dish-item'>&#9733;&#9734;&#9734;&#9734;  {{dish.dish_name}}</li>
+                            {% endif %}
+                        {% elif dish.rating == 2 %}
+                            {% if dish.notes %}
+                                <li class='dish-item'>&#9733;&#9733;&#9734;&#9734;  {{dish.dish_name}} -- {{dish.notes}}</li>
+                            {% else %}
+                                <li class='dish-item'>&#9733;&#9733;&#9734;&#9734;  {{dish.dish_name}}</li>
+                            {% endif %}
+                        {% elif dish.rating == 3 %}
+                            {% if dish.notes %}
+                                <li class='dish-item'>&#9733;&#9733;&#9733;&#9734;  {{dish.dish_name}} -- {{dish.notes}}</li>
+                            {% else %}
+                                <li class='dish-item'>&#9733;&#9733;&#9733;&#9734;  {{dish.dish_name}}</li>
+                            {% endif %}
+                        {% elif dish.rating == 4 %}
+                            {% if dish.notes %}
+                                <li class='dish-item'>&#9733;&#9733;&#9733;&#9733;  {{dish.dish_name}} -- {{dish.notes}}</li>
+                            {% else %}
+                                <li class='dish-item'>&#9733;&#9733;&#9733;&#9733;  {{dish.dish_name}}</li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div class='row justify-content-center' id='pictures'>
+            {% if pictures %}
+                {% for picture in pictures %}
+                    <div class='RestaurantPictureWrapper'>
+                        <img class='RestaurantPicture' src='{{picture.picture.url}}'>
+                        <h5 class='RestaurantDescription'><b>{{picture.caption}}</b></h5>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

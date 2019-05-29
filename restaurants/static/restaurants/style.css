@@ -1,0 +1,142 @@
+h1 {
+    text-align: center;
+}
+
+h5 {
+    text-align: center;
+}
+
+.tab {
+    padding-left: 1.5rem;
+}
+
+/* Styling for searchbar */
+
+#searchmenu {
+    margin-bottom: 2em;
+}
+
+#searchmenu p {
+    margin-bottom: 0.25em;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+/* Initially hides each district under its metroarea */
+.less-arrow { display: none; }
+.hidden-info { display: none; }
+
+.more-arrow:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.less-arrow:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Initially hides the search menu */
+#search-menu-less { display: none; }
+#searchmenu { display: none; }
+
+#search-menu-more:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+#search-menu-less:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Styling for restaurant pictures */
+
+#pictures {
+    margin-top: 1.5rem;
+}
+
+@media (max-width: 425px) {
+    .RestaurantPictureWrapper {
+        width: 125px;
+        margin: 5px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 600px) {
+    .RestaurantPictureWrapper {
+        width: 30%;
+        margin: 5px;
+    }
+}
+
+@media (min-width: 600px) {
+    .RestaurantPictureWrapper {
+        width: 30%;
+        margin: .5rem;
+        max-width: 300px;
+        max-height: 300px;
+    }
+}
+
+img {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: opacity .4s;
+}
+
+.RestaurantPictureWrapper {
+    margin-bottom: 4px;
+    position: relative;
+    display: inline-block;
+    transition: background-color: .4s, opacity: .4s;
+    background-color: black;
+}
+
+.RestaurantPictureWrapper:hover img {
+    opacity: 0.6;
+}
+
+.RestaurantPicture {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Display the description of the restaurant when hovered */
+.RestaurantDescription {
+    position: absolute;
+    top: 35%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .4s, visibility .4s;
+}
+
+.RestaurantPictureWrapper:hover .RestaurantDescription {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dish-item {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Styling for MINIMAP interface */
+
+#map {
+    width: 100%;
+    height: 350px;
+    margin-bottom: 1rem;
+}

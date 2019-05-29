@@ -6,17 +6,18 @@
 {% block bodyclass %}{% endblock %}
 {% block headtitle %}Brian Xie | Cookbook{% endblock %}
 
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'cookbook/style.css' %}">
+{% endblock %}
 
 {% block main_content %}
     <div class='container' id='cookbook'>
         <div class='title_section'>
             <h1> <b>Cookbook</b> </h1>
         </div>
-
         <h5> "Anyone who loves to eat can learn to cook." Below are some of my creations! </h5>
-        <br>
+
         {% include "cookbook/searchbar.html" %}
-        <br>
 
         {% if recipes_to_display %}
             {% for recipe in recipes_to_display %}

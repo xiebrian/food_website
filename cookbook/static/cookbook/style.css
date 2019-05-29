@@ -21,7 +21,7 @@
         max-width: 1042px;
     }
 }
-@media (max-width: 1558px) and (min-width: 1305px) {
+@media (min-width: 1305px) {
     #cookbook {
         max-width: 1296px;
     }
@@ -41,13 +41,6 @@
     #detail-container {
         max-width: 40%;
     }
-}
-
-/* Styling for navigation bar at top */
-
-.nav-item {
-    margin-left: .5em;
-    margin-right: .5em;
 }
 
 /* Styling for dropdown menu bar */
@@ -80,6 +73,8 @@ a {
 
 #searchbar {
     text-align: center;
+    margin-top: 1.1rem;
+    margin-bottom: 1.1rem;
 }
 
 /* When hovering over a food image wrapped by 'button_img' and 'img_link_wrap',
@@ -158,22 +153,28 @@ h5 {
 }
 
 /* ========================================================================== */
+/* Styling for the front page */
 
-.title_section {
-    margin-top: 1.5rem;
+/* Ensure that the front page width is optimal */
+
+@media (max-width: 850px) {
+    #frontpage {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 850px) {
+    #frontpage {
+        max-width: 850px;
+    }
+}
+
+#ProfilePic {
+    max-width: 100%;
     margin-bottom: 1.5rem;
 }
 
-* {
-    font-family: 'Ubuntu', sans-serif;
-}
-
-br {
-    margin-bottom: 0.6rem;
-}
-
-hr {
-    margin-top: 0.1em;
-    margin-bottom: 0.3em;
-    border: 1px solid purple;
+#FrontTitle {
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
 }

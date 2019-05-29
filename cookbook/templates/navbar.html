@@ -9,14 +9,16 @@
 	<div class="collapse navbar-collapse w-100 order-3 dual-collapse2" id='navbarNav'>
 		<ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{request.path}}/cookbook">Cookbook</a>
+                <a class='nav-link' href="{% url 'cookbook:index' %}">Cookbook</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{request.path}}/restaurants">Restaurants</a>
+                <a class="nav-link" href="{% url 'restaurants:index' %}">Restaurants</a>
             </li>
+            <!--
             <li class="nav-item">
-                <a class="nav-link" href="{{request.path}}/mit">@MIT</a>
+                <a class="nav-link" href="{% url 'personal:index' %}">@MIT</a>
             </li>
+            -->
 		</ul>
 	</div>
 </nav>

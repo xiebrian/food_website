@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% load render_table from django_tables2 %}
 {% load static %}
 
 {% block bodyid %}restaurants{% endblock %}
 {% block bodyclass %}{% endblock %}
 {% block headtitle %}Brian Xie | Restaurants{% endblock %}
 
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'restaurants/style.css' %}">
+{% endblock %}
 
 {% block main_content %}
     <div class='container' id='restaurants'>
@@ -12,6 +16,13 @@
             <h1><b>Restaurants</b></h1>
         </div>
 
-        <p> The restaurants app is currently under construction. Currently, only Cookbook is fully implemented.</p>
+        <h5 style='margin-bottom: 1.5rem;'> A log of all the restaurants I've visited, along with ratings and notes. </h5>
+        {% include "restaurants/searchbar.html" %}
+
+        {% if restaurants %}
+            {% render_table table %}
+        {% else %}
+            <h5> Nothing matched your search. </h5>
+        {% endif %}
     </div>
 {% endblock %}
