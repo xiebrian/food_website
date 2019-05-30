@@ -58,7 +58,7 @@
                 <input type='hidden' id='address' value='{{restaurant.address}}'>
                 <script src="{% static 'restaurants/minimap.js' %}"></script>
                 <script async defer
-                    src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAVYYFSN3BTguDGg_3dqeO1QxjE8rUemGc&callback=initMap'>
+                    src={{"https://maps.googleapis.com/maps/api/js?key="|add:google_api_key|add:"&callback=initMap"}}>
                 </script>
             </div>
             <div class='col-md-7'>

@@ -1,3 +1,5 @@
+import os
+
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django_tables2 import RequestConfig
@@ -87,5 +89,6 @@ def details(request, url_name):
         'restaurant': restaurant,
         'pictures': pictures,
         'dishes': dishes,
+        'google_api_key': os.environ['GOOGLE_API_KEY'],
     }
     return HttpResponse(template.render(context))
