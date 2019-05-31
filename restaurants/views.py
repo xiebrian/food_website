@@ -13,7 +13,7 @@ from .tables import RestaurantTable
 
 def filter_restaurants(request):
     # Get all of the objects from the database before filtering
-    restaurant_set = Restaurant.objects.order_by('restaurant_name')
+    restaurant_set = Restaurant.objects.order_by('-last_visit')
     restaurant_set = restaurant_set.filter(planned=False)
     cuisine_set = Cuisine.objects.order_by('cuisine_name')
     metroarea_set = MetroArea.objects.order_by('metroarea_name')
