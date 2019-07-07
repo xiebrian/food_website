@@ -24,18 +24,24 @@
 
                 <p><b>Cooking Time:</b> {{recipe.cooking_time|duration}}</p>
                 <p><b>Total Time:</b> {{recipe.total_time|duration}}</p>
+                {% if recipe.text_ingred %}
                 <hr>
                 <h5 class='subcategory'><b>Ingredients</b></h5>
                 <hr>
                 <p>{{recipe.text_ingred|linebreaks}}</p>
+                {% endif %}
+                {% if recipe.instructions %}
                 <hr>
                 <h5 class='subcategory'><b>Instructions</b></h5>
                 <hr>
-                <p>{{recipe.instructions|linebreaks}}</p>
+                    <p>{{recipe.instructions|linebreaks}}</p>
+                {% endif %}
+                {% if recipe.notes %}
                 <hr>
                 <h5 class='subcategory'><b>Notes/Tips:</b></h5>
                 <hr>
                 <p>{{recipe.notes|linebreaks}}</p>
+                {% endif %}
             </div>
         </div>
     </div>
