@@ -80,7 +80,7 @@ def index(request):
 
 def details(request, url_name):
     restaurant = get_object_or_404(Restaurant, url_name=url_name)
-    pictures = Picture.objects.filter(restaurant=restaurant)
+    pictures = reversed(Picture.objects.filter(restaurant=restaurant))
     dishes = reversed(Dish.objects.filter(restaurant=restaurant))
     template = loader.get_template('restaurants/details.html')
     context = {
