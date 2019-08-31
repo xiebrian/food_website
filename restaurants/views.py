@@ -88,7 +88,7 @@ def details(request, url_name):
         'url_name': url_name, 
         'restaurant': restaurant,
         'pictures': pictures,
-        'dishes': dishes,
+        'dishes': list(dishes),
         'google_api_key': os.environ['GOOGLE_API_KEY'],
     }
     return HttpResponse(template.render(context))
