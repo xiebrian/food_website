@@ -1,10 +1,11 @@
 import os
 
+from django.contrib.auth import get_user_model
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django_tables2 import RequestConfig
 from django.template import loader
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from .forms import SearchForm
 from .models import Cuisine, MetroArea, District, Restaurant, Picture, Dish
@@ -92,3 +93,30 @@ def details(request, url_name):
         'google_api_key': os.environ['GOOGLE_API_KEY'],
     }
     return HttpResponse(template.render(context))
+
+
+def statistics(request):
+    template = loader.get_template('restaurants/statistics.html')
+    context = filter_restaurants(request)
+    return HttpResponse(template.render(context))
+
+
+def get_statistics_data(request):
+    context = filter_restaurants(request)
+
+    # Compute the distribution of ratings
+    ratings = list(range(1, 11))
+    rating_counts = []
+    for rating in ratings:
+        rating_counts.append(len(context['restaurants'].filter(rating=int(rating))))
+
+    # TODO: Compute the average rating and number of restaurants for each cuisine
+    # TODO: Compute the average rating and number of restaurants for each metroarea
+    # TODO: Visualize the restaurants in the US on a map, like Zenius-i-Vanisher
+
+    data = {
+        "ratings_labels": ratings,
+        "ratings_default": rating_counts
+    }
+
+    return JsonResponse(data)

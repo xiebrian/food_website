@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+{% load static %}
+
+{% block bodyid %}restaurants{% endblock %}
+{% block bodyclass %}{% endblock %}
+{% block headtitle %}Brian Xie | Restaurants{% endblock %}
+
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'restaurants/style.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <div class='container' id='restaurants'>
+        <div class='title_section'>
+            <h1><b>Restaurant Statistics</b></h1>
+        </div>
+
+        <h5 style='margin-bottom: 1.5rem;'> Some interesting visualizations of the data from restaurants I've visited. </h5>
+        <canvas id="ratingDistribution" width="800" height="400"></canvas>
+    </div>
+{% endblock %}
+
+<!-- Visualization loading Chart.js script -->
+<script>
+    {% block jquery %}
+    var endpoint = '../api/statistics/data/'
+    var defaultData = []
+    var labels = []
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(response_data) {
+            console.log("success")
+            labels = response_data.ratings_labels
+            defaultData = response_data.ratings_default
+            setRatingDistribution()
+        },
+        error: function(error_data) {
+            console.log("error")
+            console.log(error_data)
+        }
+    })
+    function setRatingDistribution() {
+        var ctx = document.getElementById("ratingDistribution");
+        var myChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "# of Restaurants",
+                    data: defaultData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+    {% endblock %}
+</script>
