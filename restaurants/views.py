@@ -115,6 +115,8 @@ def get_statistics_data(request):
     stddev_rating = math.sqrt(sum([rating_counts[i-1] * (i - average_rating) ** 2 for i in range(1, 11)]) / sum(rating_counts))
     stddev_rating = int(stddev_rating * 100) / 100
     total_rated = sum(rating_counts)
+    ratings.reverse()
+    rating_counts.reverse()
 
     # TODO: Compute the average rating and number of restaurants for each cuisine
     # TODO: Compute the average rating and number of restaurants for each metroarea

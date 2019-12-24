@@ -104,6 +104,27 @@
                     fontSize: 28,
                     fontFamily: 'Ubuntu',
                     text: "Rating Distribution"
+                },
+                animation: {
+                    duration: 300
+                },
+                hover: {
+                    animationDuration: 0
+                },
+                tooltips: {
+                    custom: function(tooltip) {
+                        if (!tooltip) return;
+                        // disable displaying color box
+                        tooltip.displayColors = false;
+                    },
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.xLabel;
+                        },
+                        title: function(tooltipItem, data) {
+                            return;
+                        }
+                    }
                 }
             }
         });
