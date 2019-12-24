@@ -111,6 +111,7 @@ def get_statistics_data(request):
     for rating in ratings:
         rating_counts.append(len(context['restaurants'].filter(rating=int(rating))))
     average_rating = sum([i * rating_counts[i-1] for i in range(1, 11)]) / sum(rating_counts)
+    average_rating = int(average_rating * 100) / 100
     stddev_rating = math.sqrt(sum([rating_counts[i-1] * (i - average_rating) ** 2 for i in range(1, 11)]) / sum(rating_counts))
     stddev_rating = int(stddev_rating * 100) / 100
     total_rated = sum(rating_counts)
