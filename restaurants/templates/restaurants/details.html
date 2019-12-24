@@ -64,25 +64,25 @@
             <div class='col-md-7'>
                 {% if restaurant.notes %}
                     <hr>
-                    <h6 class='subcategory'><b>General Notes</b></h5>
+                    <h5 class='subcategory'><b>General Notes</b></h5>
                     <hr>
                     <p>{{restaurant.notes|linebreaks}}</p>
                 {% endif %}
                 {% if restaurant.positives %}
                     <hr>
-                    <h6 class='subcategory'><b>Positives</b></h5>
+                    <h5 class='subcategory'><b>Positives</b></h5>
                     <hr>
                     <p>{{restaurant.positives|linebreaks}}</p>
                 {% endif %}
                 {% if restaurant.negatives %}
                 <hr>
-                <h6 class='subcategory'><b>Negatives</b></h5>
+                <h5 class='subcategory'><b>Negatives</b></h5>
                 <hr>
                 <p>{{restaurant.negatives|linebreaks}}</p>
                 {% endif %}
                 {% if dishes %}
                 <hr>
-                <h6 class='subcategory'><b>Dishes Tasted</b></h5>
+                <h5 class='subcategory'><b>Dishes Tasted</b></h5>
                 <hr>
                     <ul>
                     {% for dish in dishes %}

@@ -13,11 +13,23 @@
 {% block main_content %}
     <div class='container' id='restaurants'>
         <div class='title_section'>
-            <h1><b>Restaurant Statistics</b></h1>
+            <h1><b>Visualizations</b></h1>
         </div>
 
         <h5 style='margin-bottom: 1.5rem;'> Some interesting visualizations of the data from restaurants I've visited. </h5>
-        <canvas id="ratingDistribution" width="800" height="400"></canvas>
+        <div class='row' id='ratingDistributionRow'>
+            <div class='col-md-9'>
+                <canvas id="ratingDistribution" width="800" height="400"></canvas>
+            </div>
+            <div class='col-md-2 text-center'>
+                <h6>Total Rated:</h6>
+                <h4 id="totalRated"></h4>
+                <h6>Average Rating:</h6>
+                <h4 id="averageRating"></h4>
+                <h6>Standard Deviation:</h6>
+                <h4 id="stddevRating"></h4>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -27,6 +39,9 @@
     var endpoint = '../api/statistics/data/'
     var defaultData = []
     var labels = []
+    var totalRated = 0
+    var averageRating = 0
+    var stddevRating = 0
     $.ajax({
         method: "GET",
         url: endpoint,
@@ -34,6 +49,9 @@
             console.log("success")
             labels = response_data.ratings_labels
             defaultData = response_data.ratings_default
+            totalRated = response_data.total_rated
+            averageRating = response_data.average_rating
+            stddevRating = response_data.stddev_rating
             setRatingDistribution()
         },
         error: function(error_data) {
@@ -50,19 +68,51 @@
                 datasets: [{
                     label: "# of Restaurants",
                     data: defaultData,
-                    borderWidth: 1
+                    backgroundColor: 'rgba(120, 120, 230, 1)',
                 }]
             },
             options: {
+                legend: {
+                    display: false
+                },
                 scales: {
                     yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Rating',
+                            fontColor: 'black',
+                            fontFamily: 'Ubuntu',
+                            fontSize: 18
+                        },
                         ticks: {
                             beginAtZero: true
                         }
+                    }],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Number of Restaurants",
+                            fontColor: 'black',
+                            fontFamily: 'Ubuntu',
+                            fontSize: 18
+                        }
                     }]
+                },
+                title: {
+                    display: true,
+                    fontColor: 'black',
+                    fontSize: 28,
+                    fontFamily: 'Ubuntu',
+                    text: "Rating Distribution"
                 }
             }
         });
+        var totalRatedElement = document.getElementById("totalRated");
+        totalRatedElement.innerHTML = totalRated.toString();
+        var avRatingElement = document.getElementById("averageRating");
+        avRatingElement.innerHTML = averageRating.toString();
+        var stddevRatingElement = document.getElementById("stddevRating");
+        stddevRatingElement.innerHTML = stddevRating.toString();
     }
     {% endblock %}
 </script>

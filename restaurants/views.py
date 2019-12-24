@@ -1,4 +1,5 @@
 import os
+import math
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -109,6 +110,10 @@ def get_statistics_data(request):
     rating_counts = []
     for rating in ratings:
         rating_counts.append(len(context['restaurants'].filter(rating=int(rating))))
+    average_rating = sum([i * rating_counts[i-1] for i in range(1, 11)]) / sum(rating_counts)
+    stddev_rating = math.sqrt(sum([rating_counts[i-1] * (i - average_rating) ** 2 for i in range(1, 11)]) / sum(rating_counts))
+    stddev_rating = int(stddev_rating * 100) / 100
+    total_rated = sum(rating_counts)
 
     # TODO: Compute the average rating and number of restaurants for each cuisine
     # TODO: Compute the average rating and number of restaurants for each metroarea
@@ -116,7 +121,10 @@ def get_statistics_data(request):
 
     data = {
         "ratings_labels": ratings,
-        "ratings_default": rating_counts
+        "ratings_default": rating_counts,
+        "total_rated": total_rated,
+        "average_rating": average_rating,
+        "stddev_rating": stddev_rating
     }
 
     return JsonResponse(data)
