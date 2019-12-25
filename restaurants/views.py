@@ -118,7 +118,18 @@ def get_statistics_data(request):
     ratings.reverse()
     rating_counts.reverse()
 
-    # TODO: Compute the average rating and number of restaurants for each cuisine
+    # Compute the average rating and number of restaurants for each cuisine
+    cuisines = list(context['cuisines'])
+    cuisine_rating = []
+    cuisine_count = []
+    for cuisine in cuisines:
+        filtered_restaurants = context['restaurants'].filter(cuisine=cuisine)
+        cuisine_count.append(len(filtered_restaurants))
+        rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
+        rat = int(rat * 100) / 100
+        cuisine_rating.append(rat)
+    cuisines = [c.cuisine_name for c in list(context['cuisines'])]
+
     # TODO: Compute the average rating and number of restaurants for each metroarea
     # TODO: Visualize the restaurants in the US on a map, like Zenius-i-Vanisher
 
@@ -127,7 +138,10 @@ def get_statistics_data(request):
         "ratings_default": rating_counts,
         "total_rated": total_rated,
         "average_rating": average_rating,
-        "stddev_rating": stddev_rating
+        "stddev_rating": stddev_rating,
+        "cuisines": cuisines,
+        "cuisine_rating": cuisine_rating,
+        "cuisine_count": cuisine_count
     }
 
     return JsonResponse(data)

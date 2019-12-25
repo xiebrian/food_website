@@ -30,6 +30,23 @@
                 <h4 id="stddevRating"></h4>
             </div>
         </div>
+        <!-- TODO: create the table with cuisine, rating, count.
+             Note: this needs to be orderable by cuisine, average rating, count-->
+        <div class='row' id='cuisineDistributionRow'>
+            <div class='col-md-6'>
+                <!--
+                <table class='table'>
+                    <tbody>
+                        <tr>
+                            <th scope='row'>Cuisine</th>
+                            <th scope='row'>Average Rating</th>
+                            <th scope='row'>Count</th>
+                        </tr>
+                    </tbody>
+                </table>
+                -->
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -42,6 +59,9 @@
     var totalRated = 0
     var averageRating = 0
     var stddevRating = 0
+    var cuisines = []
+    var cuisineRatings = []
+    var cuisineCounts = []
     $.ajax({
         method: "GET",
         url: endpoint,
@@ -52,7 +72,11 @@
             totalRated = response_data.total_rated
             averageRating = response_data.average_rating
             stddevRating = response_data.stddev_rating
+            cuisines = response_data.cuisines
+            cuisineRatings = response_data.cuisine_rating
+            cuisineCounts = response_data.cuisine_count
             setRatingDistribution()
+            setCuisineDistribution()
         },
         error: function(error_data) {
             console.log("error")
@@ -134,6 +158,8 @@
         avRatingElement.innerHTML = averageRating.toString();
         var stddevRatingElement = document.getElementById("stddevRating");
         stddevRatingElement.innerHTML = stddevRating.toString();
+    }
+    function setCuisineDistribution() {
     }
     {% endblock %}
 </script>
