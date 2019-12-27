@@ -149,4 +149,10 @@ img {
 #ratingDistributionRow {
     display: flex;
     align-items: center;
+    padding-bottom: 3rem;
+}
+
+.no-margin {
+    margin: 0;
+    padding: 0;
 }

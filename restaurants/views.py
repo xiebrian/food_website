@@ -19,7 +19,7 @@ def filter_restaurants(request):
     restaurant_set = restaurant_set.filter(planned=False)
     cuisine_set = Cuisine.objects.order_by('cuisine_name')
     metroarea_set = MetroArea.objects.order_by('metroarea_name')
-    district_set = District.objects.order_by('metroarea_name')
+    district_set = District.objects.order_by('metroarea__metroarea_name')
 
     # Restaurant name filtering
     name_filter = request.GET.get('name', '')
@@ -99,6 +99,9 @@ def details(request, url_name):
 def statistics(request):
     template = loader.get_template('restaurants/statistics.html')
     context = filter_restaurants(request)
+    context = {
+        'google_api_key': os.environ['GOOGLE_API_KEY']
+    }
     return HttpResponse(template.render(context))
 
 
@@ -130,8 +133,18 @@ def get_statistics_data(request):
         cuisine_rating.append(rat)
     cuisines = [c.cuisine_name for c in list(context['cuisines'])]
 
-    # TODO: Compute the average rating and number of restaurants for each metroarea
-    # TODO: Visualize the restaurants in the US on a map, like Zenius-i-Vanisher
+    # Compute the average rating and number of restaurants for each metroarea
+    metroareas = list(context['metroareas'])
+    metroarea_rating = []
+    metroarea_count = []
+    for metroarea in metroareas:
+        filtered_restaurants = context['restaurants'].filter(metroarea=metroarea)
+        metroarea_count.append(len(filtered_restaurants))
+        rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
+        rat = int(rat * 100) / 100
+        metroarea_rating.append(rat)
+    metroareas = [m.metroarea_name for m in list(context['metroareas'])]
+    metroarea_address = [m.address for m in list(context['metroareas'])]
 
     data = {
         "ratings_labels": ratings,
@@ -141,7 +154,11 @@ def get_statistics_data(request):
         "stddev_rating": stddev_rating,
         "cuisines": cuisines,
         "cuisine_rating": cuisine_rating,
-        "cuisine_count": cuisine_count
+        "cuisine_count": cuisine_count,
+        "metroareas": metroareas,
+        "metroarea_address": metroarea_address,
+        "metroarea_rating": metroarea_rating,
+        "metroarea_count": metroarea_count
     }
 
     return JsonResponse(data)

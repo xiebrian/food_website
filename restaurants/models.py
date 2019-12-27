@@ -16,6 +16,7 @@ class Cuisine(models.Model):
 class MetroArea(models.Model):
     """ Represents a metropolitan area (e.g. Boston, New York, Other) """
     metroarea_name = models.CharField(max_length=100, unique=True)
+    address = models.CharField(max_length=100, unique=True)
     def __str__(self):
         return self.metroarea_name
 

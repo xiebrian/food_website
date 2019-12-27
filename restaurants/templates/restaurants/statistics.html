@@ -16,7 +16,7 @@
             <h1><b>Visualizations</b></h1>
         </div>
 
-        <h5 style='margin-bottom: 1.5rem;'> Some interesting visualizations of the data from restaurants I've visited. </h5>
+        <h5 style="margin-bottom:1.5rem;"> Some interesting visualizations of the data from restaurants I've visited. </h5>
         <div class='row' id='ratingDistributionRow'>
             <div class='col-md-9'>
                 <canvas id="ratingDistribution" width="800" height="400"></canvas>
@@ -30,11 +30,22 @@
                 <h4 id="stddevRating"></h4>
             </div>
         </div>
+
+        <!-- TODO: create the minimap visualization with metroareas -->
+        <h5 style="margin-bottom:0.2rem;">Average rating and restaurant count for each metropolitan area.</h5>
+        <h5 style="margin-bottom:1.0rem;">Click on the markers for more info.</h5>
+        <div class='row' id='mapVisualizationRow'>
+            <div id='map' style="height:400px;"></div>
+            <script async defer
+                src={{"https://maps.googleapis.com/maps/api/js?key="|add:google_api_key|add:"&callback=initMapUSA"}}>
+            </script>
+        </div>
+
         <!-- TODO: create the table with cuisine, rating, count.
              Note: this needs to be orderable by cuisine, average rating, count-->
+        <!--
         <div class='row' id='cuisineDistributionRow'>
             <div class='col-md-6'>
-                <!--
                 <table class='table'>
                     <tbody>
                         <tr>
@@ -44,9 +55,9 @@
                         </tr>
                     </tbody>
                 </table>
-                -->
             </div>
         </div>
+        -->
     </div>
 {% endblock %}
 
@@ -62,6 +73,10 @@
     var cuisines = []
     var cuisineRatings = []
     var cuisineCounts = []
+    var metroareas = []
+    var metroareaAddress = []
+    var metroareaRatings = []
+    var metroareaCounts = []
     $.ajax({
         method: "GET",
         url: endpoint,
@@ -75,8 +90,17 @@
             cuisines = response_data.cuisines
             cuisineRatings = response_data.cuisine_rating
             cuisineCounts = response_data.cuisine_count
+            metroareas = response_data.metroareas
+            metroareaAddress = response_data.metroarea_address
+            metroareaRatings = response_data.metroarea_rating
+            metroareaCounts = response_data.metroarea_count
             setRatingDistribution()
             setCuisineDistribution()
+            setMetroareaInfo()
+            console.log(metroareas)
+            console.log(metroareaAddress)
+            console.log(metroareaRatings)
+            console.log(metroareaCounts)
         },
         error: function(error_data) {
             console.log("error")
@@ -159,7 +183,55 @@
         var stddevRatingElement = document.getElementById("stddevRating");
         stddevRatingElement.innerHTML = stddevRating.toString();
     }
+
     function setCuisineDistribution() {
+    }
+
+    function metroareaCallback(i, map, names, ratings, counts) {
+        return function(results, status) {
+            if (status === 'OK') {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    label: counts[i].toString()
+                });
+                var contentString = "" +
+                    "<div class='text-center'>" +
+                        "<h6 class='no-margin'><b>" + names[i] + "</b></h6>" +
+                        "<p class='no-margin'>Rating: " + ratings[i] + "</p>" +
+                        "<p class='no-margin'>Count: " + counts[i] + "</p>" +
+                    "</div>";
+                var infoWindow = new google.maps.InfoWindow({
+                    content: contentString
+                });
+                marker.addListener('click', function() {
+                    var map = infoWindow.getMap();
+                    if (map === null || typeof map === "undefined") {
+                        infoWindow.open(map, marker);
+                    } else {
+                        infoWindow.close();
+                    }
+                });
+            } else {
+                alert("Geocode was not successful for the following reason: " + status);
+            }
+        }
+    }
+
+    function setMetroareaInfo() {
+		var map;
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: 38.5, lng: -98.35},
+			zoom: 4
+		});
+		var geocoder = new google.maps.Geocoder();
+		for (i = 0; i < metroareas.length; i++) {
+			var address = metroareaAddress[i];
+			geocoder.geocode(
+                {'address': address}, 
+                metroareaCallback(i, map, metroareas, metroareaRatings, metroareaCounts)
+            );
+		}
     }
     {% endblock %}
 </script>
