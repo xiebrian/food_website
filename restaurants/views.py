@@ -127,10 +127,11 @@ def get_statistics_data(request):
     cuisine_count = []
     for cuisine in cuisines:
         filtered_restaurants = context['restaurants'].filter(cuisine=cuisine)
-        cuisine_count.append(len(filtered_restaurants))
-        rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
-        rat = int(rat * 100) / 100
-        cuisine_rating.append(rat)
+        if len(filtered_restaurants) > 0:
+            cuisine_count.append(len(filtered_restaurants))
+            rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
+            rat = int(rat * 100) / 100
+            cuisine_rating.append(rat)
     cuisines = [c.cuisine_name for c in list(context['cuisines'])]
 
     # Compute the average rating and number of restaurants for each metroarea
@@ -139,10 +140,11 @@ def get_statistics_data(request):
     metroarea_count = []
     for metroarea in metroareas:
         filtered_restaurants = context['restaurants'].filter(metroarea=metroarea)
-        metroarea_count.append(len(filtered_restaurants))
-        rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
-        rat = int(rat * 100) / 100
-        metroarea_rating.append(rat)
+        if len(filtered_restaurants) > 0:
+            metroarea_count.append(len(filtered_restaurants))
+            rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
+            rat = int(rat * 100) / 100
+            metroarea_rating.append(rat)
     metroareas = [m.metroarea_name for m in list(context['metroareas'])]
     metroarea_address = [m.address for m in list(context['metroareas'])]
 
