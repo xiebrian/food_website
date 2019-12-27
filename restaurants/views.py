@@ -99,8 +99,32 @@ def details(request, url_name):
 def statistics(request):
     template = loader.get_template('restaurants/statistics.html')
     context = filter_restaurants(request)
+
+    # Compute the average rating and number of restaurants for each cuisine
+    cuisines = list(context['cuisines'])
+    cuisine_name = []
+    cuisine_rating = []
+    cuisine_count = []
+    other_rating = 0
+    other_count = 0
+    for cuisine in cuisines:
+        filtered_restaurants = context['restaurants'].filter(cuisine=cuisine)
+        if len(filtered_restaurants) >= 10:
+            cuisine_name.append(cuisine)
+            cuisine_count.append(len(filtered_restaurants))
+            rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
+            rat = int(rat * 100) / 100
+            cuisine_rating.append(rat)
+        elif len(filtered_restaurants) > 0:
+            other_rating += sum([r.rating for r in filtered_restaurants])
+            other_count += len(filtered_restaurants)
+    cuisine_data = [(cuisine_name[i], cuisine_rating[i], cuisine_count[i]) for i in range(len(cuisine_name))]
+    other_rating = int(other_rating / other_count * 100) / 100
+    cuisine_data.append(("Other", other_rating, other_count))
+
     context = {
-        'google_api_key': os.environ['GOOGLE_API_KEY']
+        'google_api_key': os.environ['GOOGLE_API_KEY'],
+        'cuisine_data': cuisine_data
     }
     return HttpResponse(template.render(context))
 
@@ -120,19 +144,6 @@ def get_statistics_data(request):
     total_rated = sum(rating_counts)
     ratings.reverse()
     rating_counts.reverse()
-
-    # Compute the average rating and number of restaurants for each cuisine
-    cuisines = list(context['cuisines'])
-    cuisine_rating = []
-    cuisine_count = []
-    for cuisine in cuisines:
-        filtered_restaurants = context['restaurants'].filter(cuisine=cuisine)
-        if len(filtered_restaurants) > 0:
-            cuisine_count.append(len(filtered_restaurants))
-            rat = sum([r.rating for r in filtered_restaurants]) / len(filtered_restaurants)
-            rat = int(rat * 100) / 100
-            cuisine_rating.append(rat)
-    cuisines = [c.cuisine_name for c in list(context['cuisines'])]
 
     # Compute the average rating and number of restaurants for each metroarea
     metroareas = list(context['metroareas'])
@@ -154,9 +165,6 @@ def get_statistics_data(request):
         "total_rated": total_rated,
         "average_rating": average_rating,
         "stddev_rating": stddev_rating,
-        "cuisines": cuisines,
-        "cuisine_rating": cuisine_rating,
-        "cuisine_count": cuisine_count,
         "metroareas": metroareas,
         "metroarea_address": metroarea_address,
         "metroarea_rating": metroarea_rating,

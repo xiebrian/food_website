@@ -152,6 +152,10 @@ img {
     padding-bottom: 3rem;
 }
 
+#mapVisualizationRow {
+    padding-bottom: 2rem;
+}
+
 .no-margin {
     margin: 0;
     padding: 0;

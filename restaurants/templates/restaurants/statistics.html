@@ -17,6 +17,7 @@
         </div>
 
         <h5 style="margin-bottom:1.5rem;"> Some interesting visualizations of the data from restaurants I've visited. </h5>
+        <!-- Rating distribution of all restaurants -->
         <div class='row' id='ratingDistributionRow'>
             <div class='col-md-9'>
                 <canvas id="ratingDistribution" width="800" height="400"></canvas>
@@ -31,7 +32,7 @@
             </div>
         </div>
 
-        <!-- TODO: create the minimap visualization with metroareas -->
+        <!-- Metroarea visualization in Google Maps -->
         <h5 style="margin-bottom:0.2rem;">Average rating and restaurant count for each metropolitan area.</h5>
         <h5 style="margin-bottom:1.0rem;">Click on the markers for more info.</h5>
         <div class='row' id='mapVisualizationRow'>
@@ -41,23 +42,28 @@
             </script>
         </div>
 
-        <!-- TODO: create the table with cuisine, rating, count.
-             Note: this needs to be orderable by cuisine, average rating, count-->
-        <!--
+        <!-- Average rating and restaurant count table for each cuisine -->
         <div class='row' id='cuisineDistributionRow'>
             <div class='col-md-6'>
-                <table class='table'>
+                <h5 style="margin-bottom:1.0rem;">Average rating and restaurant count by cuisine.</h5>
+                <table class='table text-center'>
                     <tbody>
                         <tr>
                             <th scope='row'>Cuisine</th>
                             <th scope='row'>Average Rating</th>
                             <th scope='row'>Count</th>
                         </tr>
+                        {% for cuisine in cuisine_data %}
+                        <tr>
+                            <td>{{cuisine.0}}</td>
+                            <td>{{cuisine.1}}</td>
+                            <td>{{cuisine.2}}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        -->
     </div>
 {% endblock %}
 
@@ -70,9 +76,6 @@
     var totalRated = 0
     var averageRating = 0
     var stddevRating = 0
-    var cuisines = []
-    var cuisineRatings = []
-    var cuisineCounts = []
     var metroareas = []
     var metroareaAddress = []
     var metroareaRatings = []
@@ -87,20 +90,12 @@
             totalRated = response_data.total_rated
             averageRating = response_data.average_rating
             stddevRating = response_data.stddev_rating
-            cuisines = response_data.cuisines
-            cuisineRatings = response_data.cuisine_rating
-            cuisineCounts = response_data.cuisine_count
             metroareas = response_data.metroareas
             metroareaAddress = response_data.metroarea_address
             metroareaRatings = response_data.metroarea_rating
             metroareaCounts = response_data.metroarea_count
             setRatingDistribution()
-            setCuisineDistribution()
             setMetroareaInfo()
-            console.log(metroareas)
-            console.log(metroareaAddress)
-            console.log(metroareaRatings)
-            console.log(metroareaCounts)
         },
         error: function(error_data) {
             console.log("error")
@@ -182,9 +177,6 @@
         avRatingElement.innerHTML = averageRating.toString();
         var stddevRatingElement = document.getElementById("stddevRating");
         stddevRatingElement.innerHTML = stddevRating.toString();
-    }
-
-    function setCuisineDistribution() {
     }
 
     function metroareaCallback(i, map, names, ratings, counts) {
