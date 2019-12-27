@@ -1,5 +1,7 @@
-import os
+import datetime
+from dateutil.relativedelta import *
 import math
+import os
 
 from django.contrib.auth import get_user_model
 from django.db.models import Q
@@ -159,6 +161,30 @@ def get_statistics_data(request):
     metroareas = [m.metroarea_name for m in list(context['metroareas'])]
     metroarea_address = [m.address for m in list(context['metroareas'])]
 
+    # Compute the number of restaurants in each month of the last three years
+    # Restaurant.last_visit: models.DateField(blank=True, null=True)
+    curr_month = datetime.datetime.today().month
+    curr_year = datetime.datetime.today().year
+    month_counts = []
+    months = []
+    month_to_str = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun",
+                    7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+    for i in range(36):
+        start_date = datetime.date(curr_year, curr_month, 1)
+        end_date = start_date + relativedelta(months=+1)
+        filtered_restaurants = context['restaurants'].filter(
+                last_visit__gte=start_date,
+                last_visit__lt=end_date)
+        month_counts.append(len(filtered_restaurants))
+        months.append("{} {}".format(month_to_str[curr_month], curr_year))
+        if (curr_month == 1):
+            curr_month = 12
+            curr_year -= 1
+        else:
+            curr_month -= 1
+    month_counts.reverse()
+    months.reverse()
+
     data = {
         "ratings_labels": ratings,
         "ratings_default": rating_counts,
@@ -168,7 +194,8 @@ def get_statistics_data(request):
         "metroareas": metroareas,
         "metroarea_address": metroarea_address,
         "metroarea_rating": metroarea_rating,
-        "metroarea_count": metroarea_count
+        "metroarea_count": metroarea_count,
+        "months": months,
+        "month_counts": month_counts
     }
-
     return JsonResponse(data)

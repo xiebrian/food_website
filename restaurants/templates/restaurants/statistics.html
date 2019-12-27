@@ -42,8 +42,16 @@
             </script>
         </div>
 
+        <!-- Line graph of number of restaurants for each month -->
+        <h5 style="margin-bottom:0.7rem;">Number of restaurants for each month over the last three years.</h5>
+        <div class='row' id='monthVisualizationRow'>
+            <p id='graph-note'>Note: Only the last visit to each restaurant is recorded, so restaurants visited multiple times will not be displayed correctly.</p>
+            <canvas id="monthDistribution" width="800" height="300"></canvas>
+        </div>
+
         <!-- Average rating and restaurant count table for each cuisine -->
         <div class='row' id='cuisineDistributionRow'>
+            <div class='col-md-3'></div>
             <div class='col-md-6'>
                 <h5 style="margin-bottom:1.0rem;">Average rating and restaurant count by cuisine.</h5>
                 <table class='table text-center'>
@@ -55,14 +63,15 @@
                         </tr>
                         {% for cuisine in cuisine_data %}
                         <tr>
-                            <td>{{cuisine.0}}</td>
-                            <td>{{cuisine.1}}</td>
-                            <td>{{cuisine.2}}</td>
+                            <td style="padding:0.25rem">{{cuisine.0}}</td>
+                            <td style="padding:0.25rem">{{cuisine.1}}</td>
+                            <td style="padding:0.25rem">{{cuisine.2}}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
+            <div class='col-md-3'></div>
         </div>
     </div>
 {% endblock %}
@@ -80,6 +89,8 @@
     var metroareaAddress = []
     var metroareaRatings = []
     var metroareaCounts = []
+    var monthCounts = []
+    var months = []
     $.ajax({
         method: "GET",
         url: endpoint,
@@ -94,8 +105,11 @@
             metroareaAddress = response_data.metroarea_address
             metroareaRatings = response_data.metroarea_rating
             metroareaCounts = response_data.metroarea_count
+            months = response_data.months
+            monthCounts = response_data.month_counts
             setRatingDistribution()
             setMetroareaInfo()
+            setMonthDistribution()
         },
         error: function(error_data) {
             console.log("error")
@@ -177,6 +191,66 @@
         avRatingElement.innerHTML = averageRating.toString();
         var stddevRatingElement = document.getElementById("stddevRating");
         stddevRatingElement.innerHTML = stddevRating.toString();
+    }
+
+    function setMonthDistribution() {
+        console.log(monthCounts);
+        console.log(months);
+        var ctx = document.getElementById("monthDistribution");
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: "# of Restaurants",
+                    data: monthCounts,
+                    lineTension: 0,
+                    backgroundColor: "rgba(120, 120, 230, 0.4)",
+                    pointHitRadius: 6,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "Number of Restaurants",
+                            fontColor: 'black',
+                            fontFamily: 'Ubuntu',
+                            fontSize: 18
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                },
+                animation: {
+                    duration: 300
+                },
+                hover: {
+                    animationDuration: 0
+                },
+                tooltips: {
+                    custom: function(tooltip) {
+                        if (!tooltip) return;
+                        // disable displaying color box
+                        tooltip.displayColors = false;
+                    },
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.xLabel.concat(": ", tooltipItem.yLabel.toString());
+                        },
+                        title: function(tooltipItem, data) {
+                            return;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     function metroareaCallback(i, map, names, ratings, counts) {

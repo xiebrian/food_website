@@ -13,6 +13,6 @@ class RestaurantTable(tables.Table):
     district = tables.Column(orderable=False)
     rating = tables.Column(attrs=
         {'th': {'style': 'text-align: center;'}, 'td': {'align': 'center'}},
-        order_by=('rating', 'last_visit'))
+        order_by=('-rating', '-last_visit'))
     details = tables.Column(orderable=False, linkify=True, attrs=
         {'th': {'style': 'text-align: center;'},'td': {'align': 'center'}}) 

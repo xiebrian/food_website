@@ -152,6 +152,10 @@ img {
     padding-bottom: 3rem;
 }
 
+#monthVisualizationRow {
+    padding-bottom: 2rem;
+}
+
 #mapVisualizationRow {
     padding-bottom: 2rem;
 }
@@ -159,4 +163,10 @@ img {
 .no-margin {
     margin: 0;
     padding: 0;
+}
+
+#graph-note {
+    margin: auto;
+    font-size: 0.75rem;
+    color: grey;
 }
