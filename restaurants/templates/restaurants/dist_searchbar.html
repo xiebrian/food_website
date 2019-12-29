@@ -1,0 +1,48 @@
+{% load static %}
+
+<h5 id='search-menu-more' onclick="seeMore('#search-menu-more', '#search-menu-less', '#searchmenu')"> Search menu for rating distribution &#9662; </h5>
+<h5 id='search-menu-less' onclick="seeLess('#search-menu-more', '#search-menu-less', '#searchmenu')"> Search menu for rating distribution &#9652; </h5>
+
+<div id='searchmenu'>
+
+<form action='.' method='get' id='searchform'>
+    {% csrf_token %}
+    <div class='row'>
+        <div class='col searchfields text-center'>
+            <input type='submit' value="Search">
+        </div>
+        <div class='col searchfields'>
+            <label for='{{form.cuisine.id_for_label}}'><b>Cuisines:</b></label>
+            <br>
+            {{form.cuisine}}
+        </div>
+        <div class='col searchfields'>
+            <label for='{{form.price.id_for_label}}'><b>Price:</b></label>
+            <br>
+            {{form.price}}
+        </div>
+        <div class='col searchfields'>
+            <label for='{{form.metroarea.id_for_label}}'><b>Location:</b></label>
+            <br>
+            {% for metro in form.metroarea %}
+                <p>{{metro}} <span id="more-arrow-{{metro.id_for_label}}" 
+                                   class='more-arrow'
+                                   onclick="seeMore('#more-arrow-{{metro.id_for_label}}', '#less-arrow-{{metro.id_for_label}}', '#districts-{{metro.id_for_label}}')">&#9662;</span>
+                             <span id="less-arrow-{{metro.id_for_label}}" 
+                                   class='less-arrow'
+                                   onclick="seeLess('#more-arrow-{{metro.id_for_label}}', '#less-arrow-{{metro.id_for_label}}', '#districts-{{metro.id_for_label}}')">&#9652;</span></p>
+                <div class='hidden-info' id='districts-{{metro.id_for_label}}'>
+                    {% for dist in form.district %}
+                        {% if metro.choice_label in dist.choice_label %}
+                            <p class='tab subarea'>{{dist}}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</form>
+
+</div>
+
+<script src="{% static 'restaurants/dist_searchbar.js' %}"></script>

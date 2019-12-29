@@ -10,7 +10,7 @@ from django_tables2 import RequestConfig
 from django.template import loader
 from django.http import HttpResponse, JsonResponse
 
-from .forms import SearchForm
+from .forms import SearchForm, DistSearchForm
 from .models import Cuisine, MetroArea, District, Restaurant, Picture, Dish
 from .tables import RestaurantTable
 
@@ -71,6 +71,42 @@ def filter_restaurants(request):
     return context
 
 
+def filter_restaurants_dist(request, restaurant_set):
+    cuisine_filter = request.GET.get('dist_cuisine', '')
+    if cuisine_filter and cuisine_filter[0] != '':
+        cuisine_filter = cuisine_filter[1:-1].split(',')
+        first_cuisine = int(cuisine_filter[0][1:-1])
+        cuisine_filter = [int(i[2:-1]) for i in cuisine_filter[1:]]
+        cuisine_filter.append(first_cuisine)
+        restaurant_set = restaurant_set.filter(cuisine__pk__in=cuisine_filter)
+
+    price_filter = request.GET.get('dist_price', '')
+    if price_filter and price_filter[0] != '':
+        price_filter = price_filter[1:-1].split(',')
+        first_price = len(price_filter[0][1:-1])
+        price_filter = [len(i[2:-1]) for i in price_filter[1:]]
+        price_filter.append(first_price)
+        restaurant_set = restaurant_set.filter(price__in=price_filter)
+
+    metroarea_filter = request.GET.get('dist_metroarea', '')
+    if metroarea_filter and metroarea_filter[0] != '':
+        metroarea_filter = metroarea_filter[1:-1].split(',')
+        first_metroarea = int(metroarea_filter[0][1:-1])
+        metroarea_filter = [int(i[2:-1]) for i in metroarea_filter[1:]]
+        metroarea_filter.append(first_metroarea)
+        restaurant_set = restaurant_set.filter(metroarea__pk__in=metroarea_filter)
+
+    district_filter = request.GET.get('dist_district', '')
+    if district_filter and district_filter[0] != '':
+        district_filter = district_filter[1:-1].split(',')
+        first_district = int(district_filter[0][1:-1])
+        district_filter = [int(i[2:-1]) for i in district_filter[1:]]
+        district_filter.append(first_district)
+        restaurant_set = restaurant_set.filter(Q(district__pk__in=district_filter)|
+                                               Q(district__metroarea__pk__in=metroarea_filter))
+    return restaurant_set
+
+
 def index(request):
     template = loader.get_template('restaurants/index.html')
     context = filter_restaurants(request)
@@ -124,9 +160,18 @@ def statistics(request):
     other_rating = int(other_rating / other_count * 100) / 100
     cuisine_data.append(("Other", other_rating, other_count))
 
+    form = DistSearchForm(request.GET)
     context = {
         'google_api_key': os.environ['GOOGLE_API_KEY'],
-        'cuisine_data': cuisine_data
+        'cuisine_data': cuisine_data,
+        'dist_cuisine': request.GET.getlist('dist_cuisine', ''),
+        'dist_price': request.GET.getlist('dist_price', ''),
+        'dist_metroarea': request.GET.getlist('dist_metroarea', ''),
+        'dist_district': request.GET.getlist('dist_district', ''),
+        'cuisines': context['cuisines'],
+        'metroareas': context['metroareas'],
+        'districts': context['districts'],
+        'form': form
     }
     return HttpResponse(template.render(context))
 
@@ -137,8 +182,11 @@ def get_statistics_data(request):
     # Compute the distribution of ratings
     ratings = list(range(1, 11))
     rating_counts = []
+    dist_restaurant_set = filter_restaurants_dist(request, context['restaurants'])
     for rating in ratings:
-        rating_counts.append(len(context['restaurants'].filter(rating=int(rating))))
+        filtered_restaurants = dist_restaurant_set.filter(rating=int(rating))
+        rating_counts.append(len(filtered_restaurants))
+
     average_rating = sum([i * rating_counts[i-1] for i in range(1, 11)]) / sum(rating_counts)
     average_rating = int(average_rating * 100) / 100
     stddev_rating = math.sqrt(sum([rating_counts[i-1] * (i - average_rating) ** 2 for i in range(1, 11)]) / sum(rating_counts))
@@ -196,6 +244,7 @@ def get_statistics_data(request):
         "metroarea_rating": metroarea_rating,
         "metroarea_count": metroarea_count,
         "months": months,
-        "month_counts": month_counts
+        "month_counts": month_counts,
+        "dist_metroarea": request.GET.get('dist_metroarea', '')
     }
     return JsonResponse(data)

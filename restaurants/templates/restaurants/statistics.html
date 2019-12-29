@@ -4,25 +4,36 @@
 
 {% block bodyid %}restaurants{% endblock %}
 {% block bodyclass %}{% endblock %}
-{% block headtitle %}Brian Xie | Restaurants{% endblock %}
+{% block headtitle %}Brian Xie | Visualizations{% endblock %}
 
 {% block extrahead %}
     <link rel='stylesheet' type='text/css' href="{% static 'restaurants/style.css' %}">
 {% endblock %}
 
 {% block main_content %}
-    <div class='container' id='restaurants'>
+    <div class='container' id='visualizations'>
         <div class='title_section'>
             <h1><b>Visualizations</b></h1>
         </div>
+        <h5 style="margin-bottom:1.5rem;">Some interesting visualizations of the data from restaurants I've visited</h5>
 
-        <h5 style="margin-bottom:1.5rem;"> Some interesting visualizations of the data from restaurants I've visited. </h5>
-        <!-- Rating distribution of all restaurants -->
+        <!-- Rating distribution of restaurants -->
+        <input type='hidden' id='distMetroareaFilter' value='{{dist_metroarea}}'>
+        <input type='hidden' id='distPriceFilter' value='{{dist_price}}'>
+        <input type='hidden' id='distDistrictFilter' value='{{dist_district}}'>
+        <input type='hidden' id='distCuisineFilter' value='{{dist_cuisine}}'>
+        <div class='row'>
+            <div class='col-md-1'></div>
+            <div class='col-md-10'>
+                {% include "restaurants/dist_searchbar.html" %}
+            </div>
+            <div class='col-md-1'></div>
+        </div>
         <div class='row' id='ratingDistributionRow'>
             <div class='col-md-9'>
                 <canvas id="ratingDistribution" width="800" height="400"></canvas>
             </div>
-            <div class='col-md-2 text-center'>
+            <div class='col-md-3 text-center'>
                 <h6>Total Rated:</h6>
                 <h4 id="totalRated"></h4>
                 <h6>Average Rating:</h6>
@@ -94,6 +105,12 @@
     $.ajax({
         method: "GET",
         url: endpoint,
+        data: {
+            dist_metroarea: $('#distMetroareaFilter').val(),
+            dist_district: $('#distDistrictFilter').val(),
+            dist_cuisine: $('#distCuisineFilter').val(),
+            dist_price: $('#distPriceFilter').val()
+        },
         success: function(response_data) {
             console.log("success")
             labels = response_data.ratings_labels
@@ -155,10 +172,10 @@
                         }
                     }]
                 },
-                title: {
+				title: {
                     display: true,
                     fontColor: 'black',
-                    fontSize: 28,
+                    fontSize: 25,
                     fontFamily: 'Ubuntu',
                     text: "Rating Distribution"
                 },
@@ -194,8 +211,6 @@
     }
 
     function setMonthDistribution() {
-        console.log(monthCounts);
-        console.log(months);
         var ctx = document.getElementById("monthDistribution");
         var lineChart = new Chart(ctx, {
             type: 'line',
