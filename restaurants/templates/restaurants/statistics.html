@@ -56,7 +56,7 @@
         <!-- Line graph of number of restaurants for each month -->
         <h5 style="margin-bottom:0.7rem;">Number of restaurants for each month over the last three years.</h5>
         <div class='row' id='monthVisualizationRow'>
-            <p id='graph-note'>Note: Only the last visit to each restaurant is recorded, so restaurants visited multiple times will not be displayed correctly.</p>
+            <p class='graph-note'>Note: Only the last visit to each restaurant is recorded, so restaurants visited multiple times will not be displayed correctly.</p>
             <canvas id="monthDistribution" width="800" height="300"></canvas>
         </div>
 
@@ -64,7 +64,8 @@
         <div class='row' id='cuisineDistributionRow'>
             <div class='col-md-3'></div>
             <div class='col-md-6'>
-                <h5 style="margin-bottom:1.0rem;">Average rating and restaurant count by cuisine.</h5>
+                <h5 style="margin-bottom:0.7rem;">Average rating and restaurant count by cuisine.</h5>
+                <p class='graph-note' style="margin-bottom:0.3rem;">Note: Cuisines that have fewer than 10 restaurants are included under "Other".</p>
                 <table class='table text-center'>
                     <tbody>
                         <tr>

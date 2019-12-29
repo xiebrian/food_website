@@ -165,8 +165,9 @@ img {
     padding: 0;
 }
 
-#graph-note {
+.graph-note {
     margin: auto;
     font-size: 0.75rem;
     color: grey;
+    text-align: center;
 }
