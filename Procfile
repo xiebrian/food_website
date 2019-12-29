@@ -1,1 +1,1 @@
-web: gunicorn food_website.wsgi
+web: newrelic-admin run-program gunicorn food_website.wsgi
