@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'cookbook.apps.CookbookConfig',
     'restaurants.apps.RestaurantsConfig',
     'personal.apps.PersonalConfig',
+    'h31mp.apps.H31MpConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

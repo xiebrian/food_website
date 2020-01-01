@@ -25,7 +25,8 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
     path('cookbook/', include('cookbook.urls'), name='cookbook'),
     path('restaurants/', include('restaurants.urls'), name='restaurants'),
-    path('mit/', include('personal.urls'), name='mit')
+    path('mit/', include('personal.urls'), name='mit'),
+    path('h31mp/', include('h31mp.urls'), name='h31mp')
 ]
 
 if settings.DEBUG:

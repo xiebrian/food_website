@@ -1,0 +1,17 @@
+h1 {
+    text-align: center;
+}
+
+#note-text {
+    text-align: center;
+    font-size: 0.75rem;
+    color: grey;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    #text-container {
+        width: 768px;
+        margin: auto;
+    }
+}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block bodyid %}h31mp{% endblock %}
+{% block bodyclass %}{% endblock %}
+{% block headtitle %}Brian Xie | H31MP{% endblock %}
+
+{% block extrahead %}
+    <link rel='stylesheet' type='text/css' href="{% static 'h31mp/style.css' %}">
+{% endblock %}
+
+{% block main_content %}
+    <div class='container' id='h31mp'>
+        <div class='title_section'>
+            <h1><b>H31 Meal Plan</b></h1>
+        </div>
+        <p id='note-text'>Note: This webpage is under construction.</p>
+        <div id='text-container'>
+            <p>Welcome to the H31 Meal Plan (H31MP) webpage!</p>
+            <p>H31 Meal Plan is a pop-up restaurant organized by myself located by MacGregor House. This is a personal project that I've wanted to try for a long time. After some thought and consideration, I've decided to do a trial run over IAP.</p>
+            <p>My motivation for opening H31MP is not for profit. I see this as an incredible learning opportunity - learning new dishes from the requests that I get, experimenting with cooking techniques, and gaining experience cooking for larger groups of people. I also want to make this an opportunity to meet new people and connect with friends in the MIT community. With that in mind, <b>H31MP is completely free</b>. Don't worry about expenses. Don't worry if you feel that you don't know me very well (or at all) - I want to get to know more people here! All that you would need to do is show up.</p>
+            <p>Please feel free to reach out to me via email (<a href="mailto:brianxie@mit.edu"><b>brianxie@mit.edu</b></a>) or through Facebook Messenger if you're interested or have any questions! Please also fill out the <a href="https://forms.gle/Pa8GDSoMAryByVTi8"><b>Signup Form</b></a> -- it'll contain more logistical information.
+            <p>Cheers, and I look forward to meeting you all!</p>
+        </div>
+    </div>
+{% endblock %}
