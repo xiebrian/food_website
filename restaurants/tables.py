@@ -15,4 +15,4 @@ class RestaurantTable(tables.Table):
         {'th': {'style': 'text-align: center;'}, 'td': {'align': 'center'}},
         order_by=('-rating', '-last_visit'))
     details = tables.Column(orderable=False, linkify=True, attrs=
-        {'th': {'style': 'text-align: center;'},'td': {'align': 'center'}}) 
+        {'th': {'style': 'text-align: center;'},'td': {'align': 'center'}})

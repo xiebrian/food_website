@@ -4,14 +4,14 @@ from .models import Restaurant, Cuisine, MetroArea, District
 
 class SearchForm(forms.Form):
     name = forms.CharField(
-            label='Restaurant Name', 
+            label='Restaurant Name',
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 10}),
-            max_length=100, 
+            max_length=100,
             required=False)
     rating = forms.IntegerField(
-            label='Minimum Rating', 
-            min_value=1, 
-            max_value=10, 
+            label='Minimum Rating',
+            min_value=1,
+            max_value=10,
             widget=forms.NumberInput(attrs={'style': 'width:6ch'}),
             required=False)
     cuisine = forms.ModelMultipleChoiceField(
@@ -21,8 +21,8 @@ class SearchForm(forms.Form):
     price = forms.MultipleChoiceField(
             required=False,
             widget=forms.CheckboxSelectMultiple,
-            choices=[('$', '$'), ('$$', '$$'), ('$$$', '$$$'), 
-                ('$$$$', '$$$$'), ('$$$$$', '$$$$$'), ('$$$$$$', '$$$$$$')])
+            choices=[('$', '$'), ('$$', '$$'), ('$$$', '$$$'),
+                ('$$$$', '$$$$'), ('$$$$$', '$$$$$')])
     metroarea = forms.ModelMultipleChoiceField(
             required=False,
             widget=forms.CheckboxSelectMultiple,
@@ -43,14 +43,14 @@ cuisine_queryset = cuisines.filter(cuisine_name__in=filtered_cuisines)
 
 class DistSearchForm(forms.Form):
     name = forms.CharField(
-            label='Restaurant Name', 
+            label='Restaurant Name',
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 10}),
-            max_length=100, 
+            max_length=100,
             required=False)
     rating = forms.IntegerField(
-            label='Minimum Rating', 
-            min_value=1, 
-            max_value=10, 
+            label='Minimum Rating',
+            min_value=1,
+            max_value=10,
             widget=forms.NumberInput(attrs={'style': 'width:6ch'}),
             required=False)
     cuisine = forms.ModelMultipleChoiceField(
@@ -60,8 +60,8 @@ class DistSearchForm(forms.Form):
     price = forms.MultipleChoiceField(
             required=False,
             widget=forms.CheckboxSelectMultiple,
-            choices=[('$', '$'), ('$$', '$$'), ('$$$', '$$$'), 
-                ('$$$$', '$$$$'), ('$$$$$', '$$$$$'), ('$$$$$$', '$$$$$$')])
+            choices=[('$', '$'), ('$$', '$$'), ('$$$', '$$$'),
+                ('$$$$', '$$$$'), ('$$$$$', '$$$$$')])
     metroarea = forms.ModelMultipleChoiceField(
             required=False,
             widget=forms.CheckboxSelectMultiple,

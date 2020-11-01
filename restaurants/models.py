@@ -39,9 +39,9 @@ class Restaurant(models.Model):
     restaurant_name = models.CharField(max_length=100)
     cuisine         = models.ManyToManyField(to=Cuisine, blank=True)
     price           = models.IntegerField(
-                          choices = ((1, '$'), (2, '$$'), (3, '$$$'), (4, '$$$$'), (5, '$$$$$'), (6, '$$$$$$')),
+                          choices = ((1, '$'), (2, '$$'), (3, '$$$'), (4, '$$$$'), (5, '$$$$$')),
                           default = 1,
-                          help_text = "$ = <10, $$ = 11-20, $$$ = 21-30, $$$$ = 31-50, $$$$$ = 51-100, $$$$$$ = >100")
+                          help_text = "$ = <10, $$ = 11-25, $$$ = 26-50, $$$$ = 51-100, $$$$$ = >100")
 
     # Location information
     metroarea       = models.ForeignKey(MetroArea, on_delete=models.CASCADE)
@@ -60,7 +60,7 @@ class Restaurant(models.Model):
     private_notes   = models.TextField("Private Notes", default="", blank=True)
 
     # Logistical information
-    last_visit      = models.DateField(blank=True, null=True) 
+    last_visit      = models.DateField(blank=True, null=True)
     url_name        = models.SlugField(max_length=50, unique=True)
     planned         = models.BooleanField(default=False)
 
@@ -86,7 +86,7 @@ def picture_file_name(instance, filename):
 
 class Picture(models.Model):
     """ Represents a picture. Must be associated with some restaurant. """
-    picture = models.ImageField(upload_to=picture_file_name, 
+    picture = models.ImageField(upload_to=picture_file_name,
                     help_text="Remember to crop the image into a square!")
     caption = models.CharField(max_length=200)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)

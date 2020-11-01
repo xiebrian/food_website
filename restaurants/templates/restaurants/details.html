@@ -28,15 +28,13 @@
                                 {% if restaurant.price == 1 %}
                                     $ (under 10)
                                 {% elif restaurant.price == 2 %}
-                                    $$ (11-20)
+                                    $$ (11-25)
                                 {% elif restaurant.price == 3 %}
-                                    $$$ (21-30)
+                                    $$$ (26-50)
                                 {% elif restaurant.price == 4 %}
-                                    $$$$ (31-50)
+                                    $$$$ (51-100)
                                 {% elif restaurant.price == 5 %}
-                                    $$$$$ (51-100)
-                                {% elif restaurant.price == 6 %}
-                                    $$$$$$ (over 101)
+                                    $$$$$ (over 100)
                                 {% endif %}
                             </td>
                         <tr>

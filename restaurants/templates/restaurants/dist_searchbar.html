@@ -25,10 +25,10 @@
             <label for='{{form.metroarea.id_for_label}}'><b>Location:</b></label>
             <br>
             {% for metro in form.metroarea %}
-                <p>{{metro}} <span id="more-arrow-{{metro.id_for_label}}" 
+                <p>{{metro}} <span id="more-arrow-{{metro.id_for_label}}"
                                    class='more-arrow'
                                    onclick="seeMore('#more-arrow-{{metro.id_for_label}}', '#less-arrow-{{metro.id_for_label}}', '#districts-{{metro.id_for_label}}')">&#9662;</span>
-                             <span id="less-arrow-{{metro.id_for_label}}" 
+                             <span id="less-arrow-{{metro.id_for_label}}"
                                    class='less-arrow'
                                    onclick="seeLess('#more-arrow-{{metro.id_for_label}}', '#less-arrow-{{metro.id_for_label}}', '#districts-{{metro.id_for_label}}')">&#9652;</span></p>
                 <div class='hidden-info' id='districts-{{metro.id_for_label}}'>

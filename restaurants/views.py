@@ -52,7 +52,7 @@ def filter_restaurants(request):
         restaurant_set = restaurant_set.filter(metroarea__pk__in=metroarea_filter)
 
     # District filtering
-    # Note: If a metroarea is selected, it by default selects all districts 
+    # Note: If a metroarea is selected, it by default selects all districts
     #       within that metroarea, regardless of whether districts are selected
     district_filter = request.GET.getlist('district', '')
     if district_filter:
@@ -125,7 +125,7 @@ def details(request, url_name):
     template = loader.get_template('restaurants/details.html')
     context = {
         'request': request,
-        'url_name': url_name, 
+        'url_name': url_name,
         'restaurant': restaurant,
         'pictures': pictures,
         'dishes': list(dishes),
