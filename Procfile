@@ -1,2 +1,2 @@
-release: python manage.py Procfile
+release: python manage.py migrate
 web: newrelic-admin run-program gunicorn food_website.wsgi
