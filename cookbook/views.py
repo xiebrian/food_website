@@ -27,7 +27,7 @@ def filter_recipes(request):
             recipe_set = recipe_set.order_by('-total_time').filter(
                                     total_time__gte=datetime.timedelta(hours=1))
 
-    # Cuisine filtering 
+    # Cuisine filtering
     cuisine_filter = request.GET.get('cuisine', '')
     if cuisine_filter:
         recipe_set = recipe_set.filter(cuisines__cuisine_name__contains=cuisine_filter)
@@ -41,7 +41,7 @@ def filter_recipes(request):
     ingredient_filter = request.GET.get('ingredient', '')
     if ingredient_filter:
         recipe_set = recipe_set.filter(ingredients__ingredient_name__contains=ingredient_filter)
-   
+
     return recipe_set
 
 

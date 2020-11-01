@@ -4,7 +4,7 @@ function toggleDisplay(id) {
     $(id).slideToggle(300);
 }
 
-// Displays hidden element infoID 
+// Displays hidden element infoID
 function seeMore(moreID, lessID, infoID) {
     $(moreID).hide();
     $(lessID).show();
@@ -23,7 +23,7 @@ function initializeDistricts() {
         var indexOfColon = subarea.innerHTML.indexOf(':');
         var indexOfMetroareaStart = subarea.innerHTML.substring(0, indexOfColon)
                                                      .lastIndexOf('>') + 1;
-	    subarea.innerHTML = subarea.innerHTML.substring(0, indexOfMetroareaStart) + 
+	    subarea.innerHTML = subarea.innerHTML.substring(0, indexOfMetroareaStart) +
                             subarea.innerHTML.substring(indexOfColon + 1);
 	}
 }
@@ -60,7 +60,7 @@ $('#searchform').submit(function() {
     $(this).find("input[type='checkbox'][name='district']:checked").each(function() {
         parameters.push('district=' + this.value);
     });
-    
+
     // Construct the new URL
     var baseURL = window.location.toString()
                   .substring(0, window.location.toString().lastIndexOf('?'));

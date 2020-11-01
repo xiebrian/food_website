@@ -9,8 +9,8 @@ from .forms import RecipeChangeListForm
 
 class RecipeChangeList(ChangeList):
     def __init__(self, request, model, list_display, list_display_links,
-                 list_filter, date_hierarchy, search_fields, 
-                 list_select_related, list_per_page, list_max_show_all, 
+                 list_filter, date_hierarchy, search_fields,
+                 list_select_related, list_per_page, list_max_show_all,
                  list_editable, model_admin, sortable_by):
 
         super(RecipeChangeList, self).__init__(
@@ -38,7 +38,7 @@ class RecipeAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ('Logging Information', {'fields': ['last_cook_time', 'number_of_attempts', 'is_experiment', 'feature_position', 'url_name']})
     ]
     list_display = ('recipe_name', 'cooking_time', 'total_time', 'is_experiment')
-    search_fields = ['categories__category_name', 
+    search_fields = ['categories__category_name',
                      'cuisines__cuisine_name',
                      'ingredients__ingredient_name',
                      'recipe_name']

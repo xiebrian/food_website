@@ -46,7 +46,7 @@ class Recipe(models.Model):
     cropping     = ImageRatioField('picture', '1000x1000', size_warning=True)
 
     desc_summary = models.TextField("Description Summary", default="", blank=True)
-    text_ingred  = models.TextField("Ingredients List", default="", blank=True) 
+    text_ingred  = models.TextField("Ingredients List", default="", blank=True)
     instructions = models.TextField("Instructions", default="", blank=True)
     notes        = models.TextField("Notes and Tips", default="", blank=True)
     personal_log = models.TextField("Personal Notes", default="", blank=True)

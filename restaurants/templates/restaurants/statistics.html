@@ -310,7 +310,7 @@
 		for (i = 0; i < metroareas.length; i++) {
 			var address = metroareaAddress[i];
 			geocoder.geocode(
-                {'address': address}, 
+                {'address': address},
                 metroareaCallback(i, map, metroareas, metroareaRatings, metroareaCounts)
             );
 		}

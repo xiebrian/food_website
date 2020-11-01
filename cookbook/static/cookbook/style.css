@@ -116,7 +116,7 @@ img {
 }
 
 .img__description {
-  position: absolute; 
+  position: absolute;
   top: 110px;
   bottom: 0;
   left: 0;
@@ -135,7 +135,7 @@ img {
 }
 
 /* RECIPE DETAILS
-   We want the title to be centered, and 
+   We want the title to be centered, and
    we want the picture to be displayed with a maximum width */
 
 h1 {
