@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['foodwebsite.herokuapp.com', 'www.brianxie.me', 'localhost']
 
@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['foodwebsite.herokuapp.com', 'www.brianxie.me', 'localhost']
 INSTALLED_APPS = [
     'cookbook.apps.CookbookConfig',
     'restaurants.apps.RestaurantsConfig',
-    'personal.apps.PersonalConfig',
     'h31mp.apps.H31MpConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -151,7 +150,7 @@ DEFAULT_FILE_STORAGE = 'food_website.storage_backends.MediaStorage'
 # MEDIA_URL = '/media/'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-# django-image-cropping lets us crop input images (only in display) 
+# django-image-cropping lets us crop input images (only in display)
 # to fixed aspect ratios
 THUMBNAIL_DEBUG = True
 from easy_thumbnails.conf import Settings as thumbnail_settings
