@@ -1,6 +1,6 @@
 # Setup / Installation
 
-### MacOS 11.1 (Big Sur)
+### MacOS 11.1 Setup / Installation
 
 ```
 # First, create a Django virtual environment
@@ -19,5 +19,23 @@ sudo pip install django-storages
 sudo pip install django-tables2
 sudo pip install python-dateutil
 
-# ...TODO
+# ...TODO (how to actually run it locally)
+
+# Install Heroku
+brew tap heroku/brew && brew install heroku
+```
+
+### Making changes
+
+```
+# Deploy the changes to Heroku
+heroku login
+# Add a remote to your local repository
+heroku git:remote -a foodwebsite
+# check that a remote named 'heroku' has been set for the app
+git remote -v
+
+git push heroku master
+# to deploy from a branch besides master:
+# git push heroku testbranch:master
 ```
