@@ -51,11 +51,11 @@ class Recipe(models.Model):
     notes        = models.TextField("Notes and Tips", default="", blank=True)
     personal_log = models.TextField("Personal Notes", default="", blank=True)
 
-    cuisines     = models.ManyToManyField(to=Cuisine, blank=True)
-    ingredients  = models.ManyToManyField(to=Ingredient, blank=True)
-    cooking_time = models.DurationField(default=datetime.timedelta())
-    total_time   = models.DurationField(default=datetime.timedelta())
-    categories   = models.ManyToManyField(to=Category, blank=True)
+    cuisines    = models.ManyToManyField(to=Cuisine, blank=True)
+    ingredients = models.ManyToManyField(to=Ingredient, blank=True)
+    active_time = models.DurationField(default=datetime.timedelta())
+    total_time  = models.DurationField(default=datetime.timedelta())
+    categories  = models.ManyToManyField(to=Category, blank=True)
 
     last_cook_time = models.DateField()
     number_of_attempts = models.IntegerField(

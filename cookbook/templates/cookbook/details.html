@@ -22,7 +22,7 @@
                 <!-- Uncropped image of the food item -->
                 <img src="{{recipe.picture.url}}" class='ImageDetail'>
 
-                <p><b>Cooking Time:</b> {{recipe.cooking_time|duration}}</p>
+                <p><b>Active Time:</b> {{recipe.active_time|duration}}</p>
                 <p><b>Total Time:</b> {{recipe.total_time|duration}}</p>
                 {% if recipe.text_ingred %}
                 <hr>
