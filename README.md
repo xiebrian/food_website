@@ -1,5 +1,3 @@
-# Setup / Installation
-
 ### MacOS 11.1 Setup / Installation
 
 ```
@@ -19,11 +17,13 @@ sudo pip install django-storages
 sudo pip install django-tables2
 sudo pip install python-dateutil
 
-# ...TODO (how to actually run it locally)
-
 # Install Heroku
 brew tap heroku/brew && brew install heroku
 ```
+
+### Run website locally
+
+...TODO (how to actually run it locally)
 
 ### Making changes
 

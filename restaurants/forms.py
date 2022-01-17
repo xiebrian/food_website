@@ -1,4 +1,5 @@
 from django import forms
+from django.db.utils import OperationalError
 
 from .models import Restaurant, Cuisine, MetroArea, District
 
@@ -33,13 +34,20 @@ class SearchForm(forms.Form):
             queryset=District.objects.order_by('district_name'))
 
 # Include only cuisines which have >= 10 restaurants
-restaurants = Restaurant.objects.filter(planned=False)
-cuisines = Cuisine.objects.order_by('cuisine_name')
-filtered_cuisines = []
-for cuisine in cuisines:
-    if len(restaurants.filter(cuisine=cuisine)) >= 10:
-        filtered_cuisines.append(cuisine.cuisine_name)
-cuisine_queryset = cuisines.filter(cuisine_name__in=filtered_cuisines)
+cuisine_queryset = Cuisine.objects.none()
+restaurants = Restaurant.objects.none()
+try:
+    restaurants = Restaurant.objects.filter(planned=False)
+    cuisines = Cuisine.objects.order_by('cuisine_name')
+    filtered_cuisines = []
+    for cuisine in cuisines:
+        if len(restaurants.filter(cuisine=cuisine)) >= 10:
+            filtered_cuisines.append(cuisine.cuisine_name)
+    cuisine_queryset = cuisines.filter(cuisine_name__in=filtered_cuisines)
+# This happens when the DB doesn't exist yet; views.py should be importable
+# without this side effect
+except OperationalError:
+    pass
 
 class DistSearchForm(forms.Form):
     name = forms.CharField(
