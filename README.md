@@ -23,9 +23,19 @@ brew tap heroku/brew && brew install heroku
 
 ### Run website locally
 
-...TODO (how to actually run it locally)
+```
+# activate Django virtual environment
+# I'm not sure why, but you may need to install different dependencies manually.
+django-activate
+python manage.py runserver
+# navigate to localhost:8000 or localhost:8000/admin in your browser.
 
-### Making changes
+# to run a migration, first make relevant changes to the model
+python manage.py makemigrations [app_label]
+python manage.py migrate
+```
+
+### Making changes on Heroku
 
 ```
 # Deploy the changes to Heroku
@@ -38,4 +48,6 @@ git remote -v
 git push heroku master
 # to deploy from a branch besides master:
 # git push heroku testbranch:master
+# if you need to run migrations, run the following command to run it on heroku:
+# heroku run python manage.py migrate
 ```
