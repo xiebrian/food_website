@@ -8,16 +8,23 @@ from .forms import RecipeChangeListForm
 
 
 class RecipeChangeList(ChangeList):
-    def __init__(self, request, model, list_display, list_display_links,
-                 list_filter, date_hierarchy, search_fields,
-                 list_select_related, list_per_page, list_max_show_all,
-                 list_editable, model_admin, sortable_by):
 
-        super(RecipeChangeList, self).__init__(
-                request, model, list_display, list_display_links,
-                list_filter, date_hierarchy, search_fields,
-                list_select_related, list_per_page, list_max_show_all,
-                list_editable, model_admin, sortable_by)
+    def __init__(self, *args, **kwargs):
+        # apparently, there's a new field search_help_text, which was a new
+        # position argument. No idea where it's supposed to go, but it was
+        # randomly added and broke the Admin page. This fixes it.
+        super(RecipeChangeList, self).__init__(*args, **kwargs)
+
+    # def __init__(self, request, model, list_display, list_display_links,
+    #              list_filter, date_hierarchy, search_fields,
+    #              list_select_related, list_per_page, list_max_show_all,
+    #              list_editable, model_admin, sortable_by):
+
+    #     super(RecipeChangeList, self).__init__(
+    #             request, model, list_display, list_display_links,
+    #             list_filter, date_hierarchy, search_fields,
+    #             list_select_related, list_per_page, list_max_show_all,
+    #             list_editable, model_admin, sortable_by)
 
         # self.list_display = ['action_checkbox', 'recipe_name']
         # self.list_display_links = ['recipe_name']
