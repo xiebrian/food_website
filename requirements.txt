@@ -1,6 +1,6 @@
 boto3==1.26.133
 dj-database-url==2.0.0
-Django==4.2.1
+Django==4.2.3
 django-appconf==1.0.5
 django-image-cropping==1.7
 django-storages==1.13.2
