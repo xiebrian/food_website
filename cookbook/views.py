@@ -7,7 +7,7 @@ from django.template import loader
 from django.http import HttpResponse
 from .models import Recipe, Category, Ingredient, Cuisine
 
-from django.views.generic import ListView
+from django.core.paginator import Paginator
 
 
 def filter_recipes(request):
