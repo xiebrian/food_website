@@ -7,6 +7,13 @@ from django.template import loader
 from django.http import HttpResponse
 from .models import Recipe, Category, Ingredient, Cuisine
 
+from django.views.generic import ListView
+
+
+class RecipeListView(ListView):
+    paginate_by = 25
+    model = Recipe
+
 
 def filter_recipes(request):
     recipe_set = Recipe.objects.order_by('recipe_name')
