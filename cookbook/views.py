@@ -10,11 +10,6 @@ from .models import Recipe, Category, Ingredient, Cuisine
 from django.views.generic import ListView
 
 
-class RecipeListView(ListView):
-    paginate_by = 25
-    model = Recipe
-
-
 def filter_recipes(request):
     recipe_set = Recipe.objects.order_by('recipe_name')
 
@@ -58,8 +53,14 @@ def index(request):
     cuisines = Cuisine.objects.order_by('cuisine_name')
     categories = Category.objects.order_by('category_name')
     main_ingredients = Ingredient.objects.order_by('ingredient_name')
+
+    # Pagination
+    paginator = Paginator(recipes_to_display, 25)
+    page_number = request.GET.get("page")
+    recipes_to_display_paginated = paginator.get_page(page_number)
+
     context = {
-        'recipes_to_display': recipes_to_display,
+        'recipes_to_display': recipes_to_display_paginated,
         'cuisines': cuisines,
         'categories': categories,
         'main_ingredients': main_ingredients
