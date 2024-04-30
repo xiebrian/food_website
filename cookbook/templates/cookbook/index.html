@@ -39,7 +39,7 @@
                     {% for page_id in page_range %}
                         {% if page_id|is_int %}
                             <!-- We check if the page_id is numeric, b/c it could be "..."-->
-                            {% if page_id == current_page_number %}
+                            {% if page_id == 1 %}
                                 <li class="active page-item">
                                     <a class="page-link" href="?page={{page_id}}"> {{page_id}} </a>
                                 </li>
