@@ -58,9 +58,12 @@ def index(request):
     paginator = Paginator(recipes_to_display, 25)
     page_number = request.GET.get("page")
     recipes_to_display_paginated = paginator.get_page(page_number)
+    page_range = paginator.get_elided_page_range(page_number, on_each_side=2, on_ends=1)
 
     context = {
         'recipes_to_display': recipes_to_display_paginated,
+        'current_page_number': page_number,
+        'page_range': page_range,
         'cuisines': cuisines,
         'categories': categories,
         'main_ingredients': main_ingredients
