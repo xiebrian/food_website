@@ -64,7 +64,7 @@ def index(request):
 
     context = {
         'recipes_to_display': recipes_to_display_paginated,
-        'current_page_number': page_number,
+        'current_page_number': int(page_number),
         'page_range': page_range,
         'cuisines': cuisines,
         'categories': categories,
