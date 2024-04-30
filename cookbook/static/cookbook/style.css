@@ -178,3 +178,8 @@ h5 {
     margin-top: 2.5rem;
     margin-bottom: 2.5rem;
 }
+
+.active {
+    background-color: #004daa !important;
+    color: #e8e6e3 !important;
+}

@@ -12,11 +12,6 @@
     margin-bottom: 1.5rem;
 }
 
-.active {
-    background-color: #004daa !important;
-    color: #e8e6e3 !important;
-}
-
 * {
     font-family: 'Ubuntu', sans-serif;
 }
