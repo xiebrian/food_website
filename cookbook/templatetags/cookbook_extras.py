@@ -15,3 +15,7 @@ def duration(td):
         return "{} hr".format(hours)
     else:
         return "{} hr {} min".format(hours, minutes)
+
+@register.filter()
+def is_numeric(value):
+    return value.isdigit()
