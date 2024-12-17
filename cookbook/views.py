@@ -19,7 +19,7 @@ def filter_recipes(request):
         if type_filter == 'experiments':
             recipe_set = recipe_set.filter(is_experiment=True)
         elif type_filter == 'recent':
-            recipe_set = recipe_set.order_by('-last_cook_time')[:10]
+            recipe_set = recipe_set.order_by('-last_cook_time')[:25]
         elif type_filter == 'featured':
             recipe_set = recipe_set.filter(~Q(feature_position=0)).order_by('feature_position')
         elif type_filter == 'short-time':
