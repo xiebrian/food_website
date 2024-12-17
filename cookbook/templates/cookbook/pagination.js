@@ -1,7 +1,7 @@
 function addOrUpdateUrlParam(name, value)
 {
-  // var href = window.location.href;
-  var href = getUrlWithoutParams() + window.location.search;
+  var href = window.location.href;
+  console.log(href);
   var regex = new RegExp("[&\\?]" + name + "=");
   if(regex.test(href))
   {
@@ -15,10 +15,4 @@ function addOrUpdateUrlParam(name, value)
     else
       return href + "?" + name + "=" + value;
   }
-}
-
-function getUrlWithoutParams()
-{
-  const url = window.location;
-  return `${url.protocol}//${url.host}${url.pathname}`;
 }
