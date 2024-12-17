@@ -62,8 +62,7 @@ class Recipe(models.Model):
         choices = ((0, '0'), (1, '1'), (2, '2'), (3, '3'), (4, '>3')),
         default = 0
     )
-    is_experiment = models.BooleanField(default=False)
-    feature_position = models.IntegerField(default=0)
+    featured = models.BooleanField(default=False)
     url_name = models.SlugField(max_length=50, unique=True)
 
     def __str__(self):
