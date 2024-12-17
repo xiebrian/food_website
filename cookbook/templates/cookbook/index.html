@@ -68,9 +68,9 @@
             <h5> Nothing matched your search. </h5>
         {% endif %}
     </div>
+    <script>
+        console.log("Hello, this is an inline script in a Django template!");
+    </script>
 {% endblock %}
 
-<script>
-    console.log("Hello, this is an inline script in a Django template!");
-</script>
 <script src="{% static 'pagination.js' %}"></script>
