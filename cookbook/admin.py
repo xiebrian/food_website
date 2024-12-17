@@ -42,10 +42,9 @@ class RecipeAdmin(ImageCroppingMixin, admin.ModelAdmin):
         (None, {'fields': ['recipe_name', 'picture', 'cropping']}),
         ('Recipe Description', {'fields': ['desc_summary', 'text_ingred', 'instructions', 'notes', 'personal_log']}),
         ('Recipe Information', {'fields': ['ingredients', 'active_time', 'total_time', 'categories', 'cuisines']}),
-        ('Logging Information', {'fields': ['last_cook_time', 'url_name']})
+        ('Logging Information', {'fields': ['last_cook_time', 'featured', 'url_name']})
     ]
-    # TODO: add featured as a list option
-    list_display = ('recipe_name', 'active_time', 'total_time')
+    list_display = ('recipe_name', 'active_time', 'total_time', 'featured')
     search_fields = ['categories__category_name',
                      'cuisines__cuisine_name',
                      'ingredients__ingredient_name',
