@@ -19,6 +19,7 @@ def filter_recipes(request):
         if type_filter == 'recent':
             recipe_set = recipe_set.order_by('-last_cook_time')[:25]
         elif type_filter == 'featured':
+            pass
             # TODO: uncomment this when the migration is done
             # recipe_set = recipe_set.filter(~Q(feature_position=0)).order_by('recipe_name')
         elif type_filter == 'short-time':
