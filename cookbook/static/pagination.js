@@ -1,5 +1,3 @@
-console.log("pagination.js loaded successfully (2)")
-
 function addOrUpdateUrlParam(name, value)
 {
   var href = window.location.href;
