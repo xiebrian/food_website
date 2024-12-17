@@ -13,12 +13,10 @@ from django.core.paginator import Paginator
 def filter_recipes(request):
     recipe_set = Recipe.objects.order_by('recipe_name')
 
-    # Type filtering (Featured, Recent, Experiments)
+    # Type filtering (Featured, Recent, Short Time, Long Time)
     type_filter = request.GET.get('type', '')
     if type_filter:
-        if type_filter == 'experiments':
-            recipe_set = recipe_set.filter(is_experiment=True)
-        elif type_filter == 'recent':
+        if type_filter == 'recent':
             recipe_set = recipe_set.order_by('-last_cook_time')[:25]
         elif type_filter == 'featured':
             recipe_set = recipe_set.filter(~Q(feature_position=0)).order_by('feature_position')
