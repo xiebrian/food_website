@@ -19,7 +19,7 @@ def filter_recipes(request):
         if type_filter == 'recent':
             recipe_set = recipe_set.order_by('-last_cook_time')[:25]
         elif type_filter == 'featured':
-            recipe_Set = recipe_set.filter(featured=True)
+            recipe_set = recipe_set.filter(featured=True)
         elif type_filter == 'short-time':
             recipe_set = recipe_set.order_by('total_time').filter(
                                     total_time__lte=datetime.timedelta(hours=1))
