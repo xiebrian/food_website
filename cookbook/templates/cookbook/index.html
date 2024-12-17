@@ -11,6 +11,8 @@
     <link rel='stylesheet' type='text/css' href="{% static 'cookbook/style.css' %}">
 {% endblock %}
 
+<script src="pagination.js"></script>
+
 {% block main_content %}
     <div class='container' id='cookbook'>
         <div class='title_section'>
@@ -35,7 +37,7 @@
                 <ul class="pagination justify-content-center">
                     {% if recipes_to_display.has_previous %}
                         <li class="previous page-item">
-                            <a class="page-link" href="?page={{ recipes_to_display.previous_page_number }}"> « previous </a>
+                            <a class="page-link" href="javascript:addOrUpdateUrlParam('page', {{ recipes_to_display.previous_page_number }});"> « previous </a>
                         </li>
                     {% endif %}
                     {% for page_id in page_range %}
@@ -43,11 +45,11 @@
                             <!-- We check if the page_id is numeric, b/c it could be "..."-->
                             {% if page_id == current_page_number %}
                                 <li class="active page-item">
-                                    <a class="page-link" href="?page={{page_id}}"> {{page_id}} </a>
+                                    <a class="page-link" href="javascript:addOrUpdateUrlParam('page', {{ page_id }});"> {{page_id}} </a>
                                 </li>
                             {% else %}
                                 <li class="page-item">
-                                    <a class="page-link" href="?page={{page_id}}"> {{page_id}} </a>
+                                    <a class="page-link" href="javascript:addOrUpdateUrlParam('page', {{ page_id }});"> {{page_id}} </a>
                                 </li>
                             {% endif %}
                         {% else %}
@@ -58,7 +60,7 @@
                     {% endfor %}
                     {% if recipes_to_display.has_next %}
                         <li class="next page-item">
-                            <a class="page-link" href="?page={{ recipes_to_display.next_page_number}}"> next » </a>
+                            <a class="page-link" href="javascript:addOrUpdateUrlParam('page', {{ recipes_to_display.next_page_number}});"> next » </a>
                         </li>
                     {% endif %}
                 </ul>
