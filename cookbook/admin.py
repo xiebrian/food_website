@@ -42,9 +42,9 @@ class RecipeAdmin(ImageCroppingMixin, admin.ModelAdmin):
         (None, {'fields': ['recipe_name', 'picture', 'cropping']}),
         ('Recipe Description', {'fields': ['desc_summary', 'text_ingred', 'instructions', 'notes', 'personal_log']}),
         ('Recipe Information', {'fields': ['ingredients', 'active_time', 'total_time', 'categories', 'cuisines']}),
-        ('Logging Information', {'fields': ['last_cook_time', 'number_of_attempts', 'is_experiment', 'feature_position', 'url_name']})
+        ('Logging Information', {'fields': ['last_cook_time', 'feature_position', 'url_name']})
     ]
-    list_display = ('recipe_name', 'active_time', 'total_time', 'is_experiment')
+    list_display = ('recipe_name', 'active_time', 'total_time')
     search_fields = ['categories__category_name',
                      'cuisines__cuisine_name',
                      'ingredients__ingredient_name',
