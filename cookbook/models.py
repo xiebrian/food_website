@@ -58,10 +58,6 @@ class Recipe(models.Model):
     categories  = models.ManyToManyField(to=Category, blank=True)
 
     last_cook_time = models.DateField()
-    number_of_attempts = models.IntegerField(
-        choices = ((0, '0'), (1, '1'), (2, '2'), (3, '3'), (4, '>3')),
-        default = 0
-    )
     featured = models.BooleanField(default=False)
     url_name = models.SlugField(max_length=50, unique=True)
 
